@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CreativeVerse – Content Creation Path | ShalabyVerse</title>
+  <meta name="description" content="CreativeVerse teaches computational creativity, digital design, and storytelling for ages 9–14. Create with purpose inside ShalabyVerse." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --purple:#6B21A8;--purple-dark:#4A0E7A;--purple-mid:#7C3AED;--purple-light:#EDE9FE;--purple-pale:#F5F3FF;
+      --orange:#EA580C;--orange-light:#FFF7ED;--orange-hover:#C2410C;
+      --text-dark:#1E1B2E;--text-mid:#4B4568;--text-light:#8B80A8;--white:#FFFFFF;
+      --shadow-card:0 4px 24px rgba(107,33,168,0.08);--radius-card:20px;--radius-btn:50px;--font-en:'Nunito',sans-serif;
+      --accent:#16A34A;--accent-light:#ECFDF5;--accent-glow:rgba(22,163,74,.15);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+    :focus-visible{outline:2px solid var(--purple);outline-offset:2px;border-radius:4px}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font-en);color:var(--text-dark);background:var(--white);line-height:1.6;overflow-x:hidden}
+    img{max-width:100%;display:block}a{text-decoration:none;color:inherit}ul{list-style:none}
+
+    .reveal{opacity:0;transform:translateY(30px);transition:opacity .6s ease,transform .6s ease}
+    .reveal.visible{opacity:1;transform:translateY(0)}
+
+    .navbar{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 6%;height:72px;background:rgba(255,255,255,.85);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid rgba(107,33,168,.06);transition:box-shadow .3s}
+    .navbar.scrolled{box-shadow:0 4px 30px rgba(107,33,168,.1)}
+    .nav-logo{display:flex;align-items:center;gap:10px}.nav-logo-text{font-size:1.4rem;font-weight:900;color:var(--orange)}
+    .nav-back{font-size:.88rem;font-weight:700;color:var(--text-mid);display:flex;align-items:center;gap:6px;transition:color .2s}.nav-back:hover{color:var(--purple)}
+    .btn-sm{background:var(--orange);color:var(--white);font-family:var(--font-en);font-size:.82rem;font-weight:800;padding:8px 18px;border-radius:var(--radius-btn);border:none;cursor:pointer;transition:background .2s,transform .2s}.btn-sm:hover{background:var(--orange-hover);transform:translateY(-2px)}
+
+    /* HERO */
+    .verse-hero{min-height:520px;background:linear-gradient(135deg,#052e16 0%,#14532d 40%,var(--accent) 100%);display:flex;align-items:center;padding:120px 6% 70px;position:relative;overflow:hidden}
+    .verse-hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);top:-80px;right:-60px;border-radius:50%;pointer-events:none}
+    .verse-hero-inner{max-width:1200px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:1}
+    .verse-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:5px 14px;font-size:.75rem;font-weight:800;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.6px;margin-bottom:18px}
+    .verse-hero h1{font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--white);line-height:1.12;letter-spacing:-1px;margin-bottom:14px}
+    .verse-hero h1 span{color:#86EFAC}
+    .verse-hero-sub{font-size:1.05rem;color:rgba(255,255,255,.78);font-weight:500;max-width:460px;line-height:1.7;margin-bottom:28px}
+    .verse-hero-meta{display:flex;gap:24px;flex-wrap:wrap}
+    .meta-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border-radius:50px;padding:6px 14px;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.9)}
+
+    /* Hero canvas mockup */
+    .canvas-mockup{background:#0f1a14;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.08);animation:floatSlow 6s ease-in-out infinite}
+    @keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+    .canvas-topbar{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,.04)}
+    .canvas-dots{display:flex;gap:5px}.canvas-dots span{width:10px;height:10px;border-radius:50%}
+    .canvas-dots span:nth-child(1){background:#FF5F56}.canvas-dots span:nth-child(2){background:#FFBD2E}.canvas-dots span:nth-child(3){background:#27C93F}
+    .canvas-tab{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);padding:4px 12px;border-radius:6px;margin-left:auto}
+    .canvas-body{padding:20px;display:grid;grid-template-columns:48px 1fr;gap:14px;min-height:220px}
+    .canvas-tools{display:flex;flex-direction:column;gap:8px}
+    .canvas-tool{width:36px;height:36px;border-radius:10px;background:rgba(255,255,255,.06);display:flex;align-items:center;justify-content:center;font-size:.9rem;transition:background .2s;cursor:default}
+    .canvas-tool.active{background:rgba(74,222,128,.2);box-shadow:0 0 12px rgba(74,222,128,.15)}
+    .canvas-area{background:rgba(255,255,255,.03);border-radius:12px;border:1px dashed rgba(255,255,255,.1);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:20px}
+    .canvas-shape{width:120px;height:80px;border-radius:16px;background:linear-gradient(135deg,#86EFAC,#4ADE80);opacity:.8}
+    .canvas-shape-2{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,#FDE68A,#F59E0B);opacity:.7;margin-top:-20px;margin-left:60px}
+    .canvas-layers{display:flex;gap:6px;margin-top:14px}
+    .canvas-layer{font-size:.6rem;font-weight:700;padding:3px 10px;border-radius:50px;background:rgba(255,255,255,.08);color:rgba(255,255,255,.5)}
+    .canvas-layer.active{background:rgba(74,222,128,.15);color:#4ADE80}
+
+    /* SECTIONS */
+    .section{padding:80px 6%;max-width:1200px;margin:0 auto}
+    .section-full{padding:80px 6%;background:var(--purple-pale)}
+    .section-tag{display:inline-flex;align-items:center;gap:8px;background:var(--accent-light);color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:14px}
+    .section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--text-dark);line-height:1.2;margin-bottom:12px;letter-spacing:-.5px}
+    .section-title span{color:var(--purple)}
+    .section-subtitle{font-size:.95rem;color:var(--text-light);font-weight:500;max-width:540px;line-height:1.7}
+
+    .roadmap{margin-top:48px;position:relative}
+    .roadmap::before{content:'';position:absolute;left:28px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),#FCD34D,#F472B6);border-radius:4px}
+    .roadmap-phase{position:relative;padding-left:72px;margin-bottom:48px}.roadmap-phase:last-child{margin-bottom:0}
+    .roadmap-dot{position:absolute;left:16px;top:4px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:var(--white)}
+    .rd1{background:var(--accent)}.rd2{background:#EAB308}.rd3{background:#EC4899}
+    .roadmap-phase h3{font-size:1.15rem;font-weight:900;color:var(--text-dark);margin-bottom:4px}
+    .roadmap-phase h3 em{font-style:normal;color:var(--accent)}
+    .roadmap-weeks{font-size:.75rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+    .roadmap-modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px}
+    .module-card{background:var(--white);border-radius:14px;padding:18px 20px;border:1.5px solid rgba(107,33,168,.06);box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s}
+    @media(hover:hover){.module-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(107,33,168,.12)}}
+    .module-num{font-size:.68rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .module-name{font-size:.95rem;font-weight:800;color:var(--text-dark);margin-bottom:6px}
+    .module-desc{font-size:.82rem;color:var(--text-light);font-weight:500;line-height:1.5}
+    .module-skills{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+    .module-skill{font-size:.68rem;font-weight:700;color:var(--purple);background:var(--purple-light);padding:3px 9px;border-radius:50px}
+
+    .projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+    .project-card{background:var(--white);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow-card);border:1.5px solid rgba(107,33,168,.06);transition:transform .25s,box-shadow .25s}
+    @media(hover:hover){.project-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(107,33,168,.12)}}
+    .project-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+    .pt1{background:linear-gradient(135deg,#ECFDF5,#D1FAE5)}.pt2{background:linear-gradient(135deg,#FEF9C3,#FDE68A)}.pt3{background:linear-gradient(135deg,#FCE7F3,#FBCFE8)}
+    .project-info{padding:20px}
+    .project-phase{font-size:.68rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+    .project-name{font-size:1.05rem;font-weight:900;color:var(--text-dark);margin-bottom:6px}
+    .project-desc{font-size:.82rem;color:var(--text-light);font-weight:500;line-height:1.5}
+
+    .skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+    .skill-card{text-align:center;background:var(--white);border-radius:16px;padding:28px 18px;box-shadow:var(--shadow-card);border:1.5px solid rgba(107,33,168,.06);transition:transform .25s}
+    @media(hover:hover){.skill-card:hover{transform:translateY(-4px)}}
+    .skill-icon{font-size:2rem;margin-bottom:12px}.skill-name{font-size:.92rem;font-weight:800;color:var(--text-dark);margin-bottom:4px}.skill-detail{font-size:.78rem;color:var(--text-light);font-weight:500;line-height:1.5}
+
+    .tools-band{padding:60px 6%;background:linear-gradient(90deg,#052e16,#14532d)}
+    .tools-inner{max-width:1200px;margin:0 auto;text-align:center}
+    .tools-inner h2{font-size:1.4rem;font-weight:900;color:var(--white);margin-bottom:30px}
+    .tools-row{display:flex;justify-content:center;flex-wrap:wrap;gap:16px}
+    .tool-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 18px;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.9);transition:background .2s}
+    @media(hover:hover){.tool-chip:hover{background:rgba(255,255,255,.18)}}
+
+    .verse-cta{padding:80px 6%;text-align:center;background:linear-gradient(135deg,#052e16,#14532d 60%,var(--accent));position:relative;overflow:hidden}
+    .verse-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.06) 0%,transparent 70%)}
+    .verse-cta-inner{position:relative;z-index:1}
+    .verse-cta h2{font-size:clamp(1.6rem,3vw,2.4rem);font-weight:900;color:var(--white);margin-bottom:10px}
+    .verse-cta p{font-size:.95rem;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:28px}
+    .btn-big{background:var(--white);color:var(--accent);font-family:var(--font-en);font-size:1rem;font-weight:900;padding:14px 36px;border-radius:var(--radius-btn);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,0,0,.2)}.btn-big:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.3)}
+
+    .footer{background:var(--text-dark);padding:30px 6%}
+    .footer-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+    .footer-logo{font-size:1.2rem;font-weight:900;color:var(--white)}.footer-logo span{color:var(--orange)}
+    .footer-copy{font-size:.78rem;color:rgba(255,255,255,.35);font-weight:500}
+    .footer-back{font-size:.82rem;font-weight:700;color:var(--orange);transition:color .2s}.footer-back:hover{color:var(--white)}
+
+    @media(max-width:1024px){.skills-grid{grid-template-columns:repeat(2,1fr)}.projects-grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:768px){.verse-hero-inner{grid-template-columns:1fr;text-align:center}.verse-hero-sub{margin:0 auto 28px}.verse-hero-meta{justify-content:center}.canvas-mockup{display:none}.skills-grid{grid-template-columns:1fr 1fr}.projects-grid{grid-template-columns:1fr}.roadmap::before{left:18px}.roadmap-phase{padding-left:56px}.roadmap-dot{left:6px}}
+    @media(max-width:480px){.skills-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo"><span class="nav-logo-text">ShalabyVerse</span></a>
+    <a href="index.html" class="nav-back">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+      Back to Home
+    </a>
+    <a href="index.html#cta"><button class="btn-sm">Start Free Trial</button></a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="verse-hero">
+    <div class="verse-hero-inner">
+      <div class="reveal">
+        <div class="verse-hero-badge">🎨 CreativeVerse</div>
+        <h1>Create with<br><span>Purpose</span> & Code.</h1>
+        <p class="verse-hero-sub">
+          CreativeVerse blends computational thinking with design and storytelling.
+          Students don't just consume content — they learn to create it.
+        </p>
+        <div class="verse-hero-meta">
+          <div class="meta-pill">✓ Ages 9–14</div>
+          <div class="meta-pill">📦 36 Modules</div>
+          <div class="meta-pill">🎭 3 Phases</div>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="canvas-mockup">
+          <div class="canvas-topbar">
+            <div class="canvas-dots"><span></span><span></span><span></span></div>
+            <div class="canvas-tab">my-poster.svg</div>
+          </div>
+          <div class="canvas-body">
+            <div class="canvas-tools">
+              <div class="canvas-tool active">✏️</div>
+              <div class="canvas-tool">🔲</div>
+              <div class="canvas-tool">⭕</div>
+              <div class="canvas-tool">🎨</div>
+              <div class="canvas-tool">✂️</div>
+            </div>
+            <div class="canvas-area">
+              <div class="canvas-shape"></div>
+              <div class="canvas-shape-2"></div>
+              <div class="canvas-layers">
+                <span class="canvas-layer active">Layer 1</span>
+                <span class="canvas-layer">Layer 2</span>
+                <span class="canvas-layer">BG</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CURRICULUM -->
+  <section class="section">
+    <div class="section-tag">Curriculum</div>
+    <h2 class="section-title reveal">Three Phases of <span>Creative Growth</span></h2>
+    <p class="section-subtitle reveal">From first sketches to publishing complete digital stories.</p>
+
+    <div class="roadmap">
+      <div class="roadmap-phase reveal">
+        <div class="roadmap-dot rd1">1</div>
+        <h3><em>Phase 1</em> — Computational Creativity</h3>
+        <div class="roadmap-weeks">Weeks 1–12 · 12 Modules</div>
+        <div class="roadmap-modules">
+          <div class="module-card">
+            <div class="module-num">Module 01</div>
+            <div class="module-name">Thinking Like a Creator</div>
+            <div class="module-desc">Explore the creative process — ideation, iteration, and how computers help us create.</div>
+            <div class="module-skills"><span class="module-skill">Ideation</span><span class="module-skill">Process</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 02</div>
+            <div class="module-name">Shapes, Colors & Composition</div>
+            <div class="module-desc">Learn the building blocks of visual design — how shapes and colors create meaning.</div>
+            <div class="module-skills"><span class="module-skill">Design</span><span class="module-skill">Color</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 03</div>
+            <div class="module-name">Patterns & Repetition</div>
+            <div class="module-desc">Use loops and algorithms to generate art — tessellations, fractals, and geometric patterns.</div>
+            <div class="module-skills"><span class="module-skill">Patterns</span><span class="module-skill">Generative</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 04</div>
+            <div class="module-name">Interactive Art</div>
+            <div class="module-desc">Create art that responds to clicks, key presses, and mouse movement. Code meets canvas.</div>
+            <div class="module-skills"><span class="module-skill">Interactive</span><span class="module-skill">Events</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase reveal">
+        <div class="roadmap-dot rd2">2</div>
+        <h3><em>Phase 2</em> — Digital Design</h3>
+        <div class="roadmap-weeks">Weeks 13–24 · 12 Modules</div>
+        <div class="roadmap-modules">
+          <div class="module-card">
+            <div class="module-num">Module 05</div>
+            <div class="module-name">Typography & Layout</div>
+            <div class="module-desc">Choose fonts, align elements, and create layouts that guide the eye and communicate clearly.</div>
+            <div class="module-skills"><span class="module-skill">Typography</span><span class="module-skill">Layout</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 06</div>
+            <div class="module-name">Poster & Banner Design</div>
+            <div class="module-desc">Design event posters, social banners, and infographics with real design tools.</div>
+            <div class="module-skills"><span class="module-skill">Posters</span><span class="module-skill">Graphics</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 07</div>
+            <div class="module-name">Animation Basics</div>
+            <div class="module-desc">Bring designs to life with frame-by-frame animation and CSS transitions.</div>
+            <div class="module-skills"><span class="module-skill">Animation</span><span class="module-skill">Motion</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 08</div>
+            <div class="module-name">UI Design Foundations</div>
+            <div class="module-desc">Design app screens, buttons, cards, and navigation — the basics of interface design.</div>
+            <div class="module-skills"><span class="module-skill">UI</span><span class="module-skill">Components</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="roadmap-phase reveal">
+        <div class="roadmap-dot rd3">3</div>
+        <h3><em>Phase 3</em> — Storytelling</h3>
+        <div class="roadmap-weeks">Weeks 25–36 · 12 Modules</div>
+        <div class="roadmap-modules">
+          <div class="module-card">
+            <div class="module-num">Module 09</div>
+            <div class="module-name">Story Structure</div>
+            <div class="module-desc">Learn the arc of a story — beginning, conflict, climax, resolution — and apply it digitally.</div>
+            <div class="module-skills"><span class="module-skill">Narrative</span><span class="module-skill">Structure</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 10</div>
+            <div class="module-name">Characters & World-building</div>
+            <div class="module-desc">Design characters, settings, and worlds. Create a style guide for your story universe.</div>
+            <div class="module-skills"><span class="module-skill">Characters</span><span class="module-skill">Worlds</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 11</div>
+            <div class="module-name">Interactive Stories</div>
+            <div class="module-desc">Build choose-your-own-adventure stories where the reader makes decisions that change the plot.</div>
+            <div class="module-skills"><span class="module-skill">Branching</span><span class="module-skill">Interactive</span></div>
+          </div>
+          <div class="module-card">
+            <div class="module-num">Module 12</div>
+            <div class="module-name">Capstone: Digital Story</div>
+            <div class="module-desc">Create and publish a complete interactive story with original art, animation, and branching paths.</div>
+            <div class="module-skills"><span class="module-skill">Project</span><span class="module-skill">Portfolio</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <div class="section-full">
+    <section class="section" style="padding-top:0;padding-bottom:0;">
+      <div class="section-tag">Projects</div>
+      <h2 class="section-title reveal">What You'll <span>Create</span></h2>
+      <p class="section-subtitle reveal">Original work you'll be proud to show anyone.</p>
+      <div class="projects-grid">
+        <div class="project-card reveal">
+          <div class="project-thumb pt1">🌀</div>
+          <div class="project-info">
+            <div class="project-phase">Phase 1</div>
+            <div class="project-name">Generative Art Gallery</div>
+            <div class="project-desc">Code algorithms that produce unique visual art — every run creates a new masterpiece.</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-thumb pt2">🎪</div>
+          <div class="project-info">
+            <div class="project-phase">Phase 2</div>
+            <div class="project-name">Event Poster Campaign</div>
+            <div class="project-desc">Design a full set of event materials — poster, social banners, and animated invitation.</div>
+          </div>
+        </div>
+        <div class="project-card reveal">
+          <div class="project-thumb pt3">📖</div>
+          <div class="project-info">
+            <div class="project-phase">Phase 3</div>
+            <div class="project-name">Interactive Storybook</div>
+            <div class="project-desc">A fully illustrated, branching digital story with original characters and animated scenes.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- SKILLS -->
+  <section class="section">
+    <div class="section-tag">Outcomes</div>
+    <h2 class="section-title reveal">Skills Your Child <span>Gains</span></h2>
+    <p class="section-subtitle reveal">Creativity meets structure — the perfect combination.</p>
+    <div class="skills-grid">
+      <div class="skill-card reveal"><div class="skill-icon">🎨</div><div class="skill-name">Visual Design</div><div class="skill-detail">Compose layouts, choose colors, and create designs that communicate.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">✍️</div><div class="skill-name">Storytelling</div><div class="skill-detail">Craft narratives with structure, tension, and emotional impact.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">💡</div><div class="skill-name">Creative Thinking</div><div class="skill-detail">Generate ideas, iterate, and push beyond the obvious solution.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">🎬</div><div class="skill-name">Animation</div><div class="skill-detail">Create motion graphics and bring static designs to life.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">🎯</div><div class="skill-name">Design Principles</div><div class="skill-detail">Apply hierarchy, contrast, alignment, and proximity intentionally.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">🧩</div><div class="skill-name">Computational Art</div><div class="skill-detail">Use code as a creative medium — generative, interactive, and algorithmic art.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">🗣️</div><div class="skill-name">Presentation</div><div class="skill-detail">Present creative work with confidence and explain design decisions.</div></div>
+      <div class="skill-card reveal"><div class="skill-icon">🤝</div><div class="skill-name">Collaboration</div><div class="skill-detail">Give and receive creative feedback. Iterate on ideas together.</div></div>
+    </div>
+  </section>
+
+  <!-- TOOLS -->
+  <div class="tools-band">
+    <div class="tools-inner reveal">
+      <h2>Tools & Concepts in CreativeVerse</h2>
+      <div class="tools-row">
+        <div class="tool-chip">🎨 Figma Basics</div>
+        <div class="tool-chip">🖌️ HTML Canvas</div>
+        <div class="tool-chip">✨ CSS Animations</div>
+        <div class="tool-chip">📐 Design Systems</div>
+        <div class="tool-chip">📖 Twine (Interactive Stories)</div>
+        <div class="tool-chip">🤖 Artemis AI Tutor</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <section class="verse-cta">
+    <div class="verse-cta-inner reveal">
+      <h2>Ready to Start CreativeVerse?</h2>
+      <p>Let your child's imagination build something real.</p>
+      <a href="index.html#cta"><button class="btn-big">Start Free Trial →</button></a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-logo">Shalaby<span>Verse</span></div>
+      <p class="footer-copy">ShalabyVerse © 2026. All rights reserved.</p>
+      <a href="index.html" class="footer-back">← Back to Home</a>
+    </div>
+  </footer>
+
+  <script>
+    const navbar=document.getElementById('navbar');
+    window.addEventListener('scroll',()=>{navbar.classList.toggle('scrolled',window.scrollY>20)});
+    const observer=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');observer.unobserve(e.target)}})},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+    document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+  </script>
+</body>
+</html>
