@@ -64,6 +64,7 @@
     }
 
     html { scroll-behavior: smooth; }
+    section[id] { scroll-margin-top: 80px; }
 
     body {
       font-family: var(--font-en);
@@ -1351,14 +1352,12 @@
 
     <ul class="nav-links" role="list">
       <li><a href="#curriculum">Curriculum</a></li>
-      <li><a href="#verses">Verses</a></li>
       <li><a href="#contact">Contact</a></li>
       <li><a href="#faqs">FAQs</a></li>
     </ul>
 
     <div class="nav-right">
-      <a href="#" class="nav-login">Log in</a>
-      <button class="btn-orange" onclick="scrollToSection('cta')">Start Free Trial</button>
+      <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;">Join the Whitelist</a>
     </div>
 
     <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
@@ -1369,11 +1368,9 @@
   <!-- Mobile menu -->
   <div class="mobile-menu" id="mobile-menu" role="menu">
     <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
-    <a href="#verses"     onclick="closeMobileMenu()">Verses</a>
     <a href="#contact"    onclick="closeMobileMenu()">Contact</a>
     <a href="#faqs"       onclick="closeMobileMenu()">FAQs</a>
-    <a href="#"           onclick="closeMobileMenu()">Log in</a>
-    <button class="btn-orange" onclick="scrollToSection('cta'); closeMobileMenu();">Start Free Trial</button>
+    <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;" onclick="closeMobileMenu()">Join the Whitelist</a>
   </div>
 
   <!-- ============================================================
@@ -1496,7 +1493,7 @@
   <!-- ============================================================
        4 VERSE CARDS
   ============================================================ -->
-  <section class="section" id="verses" aria-labelledby="verses-heading">
+  <section class="section" id="curriculum" aria-labelledby="verses-heading">
     <div class="section-tag">Our Learning Paths</div>
     <h2 class="section-title reveal" id="verses-heading">
       Four Worlds of <span>Knowledge</span>
@@ -1505,7 +1502,7 @@
       Each Verse is a complete, structured learning journey designed for different skills and age groups.
     </p>
 
-    <div class="verses-grid stagger" id="curriculum">
+    <div class="verses-grid stagger">
       <!-- Card 1: CodeVerse -->
       <article class="verse-card vc1 reveal" aria-labelledby="cv-title">
         <div class="verse-card-icon" aria-hidden="true">💻</div>
@@ -1890,7 +1887,6 @@
 
         <nav class="footer-links" aria-label="Footer navigation">
           <a href="#curriculum">Curriculum</a>
-          <a href="#verses">Verses</a>
           <a href="#contact">Contact</a>
           <a href="#faqs">FAQs</a>
           <a href="#">Terms</a>
