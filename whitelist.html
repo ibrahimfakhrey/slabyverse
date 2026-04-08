@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Join the Whitelist | ShalabyVerse</title>
+  <meta name="description" content="Be the first to know when ShalabyVerse launches. Join our whitelist for early access to structured STEM learning for ages 9–16." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --purple:        #6B21A8;
+      --purple-dark:   #4A0E7A;
+      --purple-mid:    #7C3AED;
+      --purple-light:  #EDE9FE;
+      --purple-pale:   #F5F3FF;
+      --orange:        #EA580C;
+      --orange-light:  #FFF7ED;
+      --orange-hover:  #C2410C;
+      --text-dark:     #1E1B2E;
+      --text-mid:      #4B4568;
+      --text-light:    #8B80A8;
+      --white:         #FFFFFF;
+      --shadow-card:   0 4px 24px rgba(107,33,168,0.08);
+      --radius-card:   20px;
+      --radius-btn:    50px;
+      --font-en:       'Nunito', sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation-duration:.01ms!important; transition-duration:.01ms!important; }
+    }
+    :focus-visible { outline: 2px solid var(--purple); outline-offset: 2px; border-radius: 4px; }
+
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: var(--font-en);
+      color: var(--text-dark);
+      background: var(--white);
+      line-height: 1.6;
+      overflow-x: hidden;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    img { max-width: 100%; display: block; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ── NAVBAR ── */
+    .navbar {
+      position: fixed; top: 0; left: 0; width: 100%; z-index: 1000;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5%;
+      height: 72px;
+      background: rgba(255,255,255,.82);
+      backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(107,33,168,.06);
+      transition: box-shadow .3s;
+    }
+    .navbar.scrolled { box-shadow: 0 2px 20px rgba(107,33,168,.08); }
+    .nav-logo {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .nav-logo img { height: 44px; width: auto; }
+    .nav-logo-text {
+      font-size: 1.2rem; font-weight: 900; color: var(--purple);
+      letter-spacing: -.3px;
+    }
+    .nav-home {
+      font-family: var(--font-en);
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--purple);
+      padding: 9px 22px;
+      border-radius: var(--radius-btn);
+      border: 2px solid var(--purple);
+      transition: background .25s, color .25s;
+    }
+    @media (hover: hover) {
+      .nav-home:hover { background: var(--purple); color: var(--white); }
+    }
+
+    /* ── MAIN CONTENT ── */
+    .page-body {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 120px 6% 60px;
+      background: linear-gradient(170deg, var(--purple-pale) 0%, var(--white) 40%, var(--orange-light) 100%);
+    }
+
+    .whitelist-card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--white);
+      border-radius: var(--radius-card);
+      box-shadow: 0 8px 40px rgba(107,33,168,.10);
+      border: 1.5px solid rgba(107,33,168,.06);
+      padding: 48px 40px;
+      text-align: center;
+      animation: fadeUp .6s ease both;
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .wl-icon {
+      width: 72px; height: 72px;
+      margin: 0 auto 20px;
+      border-radius: 20px;
+      background: linear-gradient(135deg, var(--purple-light), #DDD6FE);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 2rem;
+    }
+
+    .wl-title {
+      font-size: 1.6rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .wl-title span { color: var(--orange); }
+
+    .wl-subtitle {
+      font-size: .92rem;
+      font-weight: 500;
+      color: var(--text-light);
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+
+    /* ── FORM ── */
+    .wl-form { display: flex; flex-direction: column; gap: 16px; }
+
+    .wl-field {
+      position: relative;
+    }
+    .wl-field input {
+      width: 100%;
+      padding: 14px 18px 14px 48px;
+      font-family: var(--font-en);
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text-dark);
+      background: var(--purple-pale);
+      border: 2px solid transparent;
+      border-radius: 14px;
+      outline: none;
+      transition: border-color .25s, background .25s;
+    }
+    .wl-field input::placeholder { color: var(--text-light); font-weight: 500; }
+    .wl-field input:focus {
+      border-color: var(--purple-mid);
+      background: var(--white);
+    }
+    .wl-field-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      opacity: .55;
+      pointer-events: none;
+    }
+
+    .wl-submit {
+      width: 100%;
+      padding: 14px;
+      font-family: var(--font-en);
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--white);
+      background: var(--orange);
+      border: none;
+      border-radius: var(--radius-btn);
+      cursor: pointer;
+      transition: background .25s, transform .2s;
+    }
+    @media (hover: hover) {
+      .wl-submit:hover { background: var(--orange-hover); transform: translateY(-2px); }
+    }
+    .wl-submit:active { transform: scale(.98); }
+
+    .wl-note {
+      font-size: .78rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-top: 4px;
+    }
+
+    /* ── SUCCESS STATE ── */
+    .wl-success {
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      animation: fadeUp .5s ease both;
+    }
+    .wl-success.show { display: flex; }
+    .wl-form.hidden { display: none; }
+
+    .wl-check {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #ECFDF5, #D1FAE5);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.8rem;
+    }
+    .wl-success-title {
+      font-size: 1.3rem;
+      font-weight: 900;
+      color: var(--text-dark);
+    }
+    .wl-success-msg {
+      font-size: .9rem;
+      color: var(--text-light);
+      font-weight: 500;
+      line-height: 1.6;
+    }
+    .wl-back {
+      margin-top: 8px;
+      display: inline-block;
+      font-size: .88rem;
+      font-weight: 700;
+      color: var(--purple);
+      padding: 9px 24px;
+      border: 2px solid var(--purple);
+      border-radius: var(--radius-btn);
+      transition: background .25s, color .25s;
+    }
+    @media (hover: hover) {
+      .wl-back:hover { background: var(--purple); color: var(--white); }
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,.5);
+      padding: 28px 6%;
+      text-align: center;
+      font-size: .8rem;
+      font-weight: 500;
+    }
+    .footer a { color: rgba(255,255,255,.7); transition: color .2s; }
+    .footer a:hover { color: var(--white); }
+
+    @media (max-width: 560px) {
+      .whitelist-card { padding: 36px 24px; }
+      .wl-title { font-size: 1.35rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="index.html" class="nav-logo">
+      <img src="logo 01.png" alt="ShalabyVerse logo" height="44">
+      <span class="nav-logo-text">ShalabyVerse</span>
+    </a>
+    <a href="index.html" class="nav-home">← Back to Home</a>
+  </nav>
+
+  <!-- MAIN -->
+  <main class="page-body">
+    <div class="whitelist-card">
+      <div class="wl-icon" aria-hidden="true">🚀</div>
+      <h1 class="wl-title">Join the <span>Whitelist</span></h1>
+      <p class="wl-subtitle">Be the first to know when ShalabyVerse launches. Enter your email and we'll keep you in the loop.</p>
+
+      <!-- FORM -->
+      <form class="wl-form" id="wlForm" action="https://formsubmit.co/Abdelhamid@ShalabyVerse.com" method="POST">
+        <!-- FormSubmit config -->
+        <input type="hidden" name="_subject" value="New Whitelist Signup – ShalabyVerse">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="">
+        <input type="hidden" name="_template" value="table">
+        <input type="text" name="_honey" style="display:none">
+
+        <div class="wl-field">
+          <span class="wl-field-icon">👤</span>
+          <input type="text" name="name" placeholder="Your name" required autocomplete="name">
+        </div>
+        <div class="wl-field">
+          <span class="wl-field-icon">✉️</span>
+          <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+        </div>
+        <button type="submit" class="wl-submit">Join the Whitelist →</button>
+        <p class="wl-note">No spam, ever. We only send launch updates.</p>
+      </form>
+
+      <!-- SUCCESS MESSAGE -->
+      <div class="wl-success" id="wlSuccess">
+        <div class="wl-check">✓</div>
+        <div class="wl-success-title">You're on the list!</div>
+        <p class="wl-success-msg">We'll notify you as soon as ShalabyVerse is ready. Check your inbox for a confirmation.</p>
+        <a href="index.html" class="wl-back">← Back to Home</a>
+      </div>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    © 2026 ShalabyVerse. All rights reserved. · <a href="index.html">Home</a>
+  </footer>
+
+  <script>
+    // Navbar scroll shadow
+    window.addEventListener('scroll', () => {
+      document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 10);
+    });
+
+    // Set the _next hidden field to current page URL for redirect after submit
+    const nextField = document.querySelector('input[name="_next"]');
+    if (nextField) nextField.value = window.location.href + '?submitted=true';
+
+    // Check if returning from FormSubmit redirect
+    if (window.location.search.includes('submitted=true')) {
+      document.getElementById('wlForm').classList.add('hidden');
+      document.getElementById('wlSuccess').classList.add('show');
+    }
+  </script>
+</body>
+</html>
