@@ -254,6 +254,17 @@
       .whitelist-card { padding: 36px 24px; }
       .wl-title { font-size: 1.35rem; }
     }
+    .lang-toggle {
+      font-size: .85rem; font-weight: 700; color: var(--purple);
+      padding: 7px 16px; border-radius: var(--radius-btn);
+      border: 2px solid var(--purple); background: transparent;
+      cursor: pointer; transition: background .25s, color .25s;
+      text-decoration: none; white-space: nowrap;
+    }
+    .lang-toggle:hover { background: var(--purple); color: var(--white); }
+    .or-divider { display:flex; align-items:center; gap:12px; margin:4px 0; }
+    .or-divider::before, .or-divider::after { content:''; flex:1; height:1px; background:rgba(107,33,168,.1); }
+    .or-divider span { font-size:.8rem; font-weight:700; color:var(--text-light); }
   </style>
 </head>
 <body>
@@ -264,6 +275,7 @@
       <img src="logo 01.png" alt="ShalabyVerse logo" height="44">
       <span class="nav-logo-text">ShalabyVerse</span>
     </a>
+    <a href="whitelist_arabic.html" class="lang-toggle">🌐 العربية</a>
     <a href="index.html" class="nav-home">← Back to Home</a>
   </nav>
 
@@ -290,6 +302,10 @@
         <div class="wl-field">
           <span class="wl-field-icon">✉️</span>
           <input type="email" name="email" placeholder="Your email address" required autocomplete="email">
+        </div>
+        <div class="wl-field">
+          <span class="wl-field-icon">📱</span>
+          <input type="tel" name="phone" placeholder="Your phone number" required autocomplete="tel">
         </div>
         <button type="submit" class="wl-submit">Join the Whitelist →</button>
         <p class="wl-note">No spam, ever. We only send launch updates.</p>

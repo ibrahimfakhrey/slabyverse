@@ -1336,6 +1336,14 @@
       .section { padding: 60px 4%; }
       .section-full { padding: 60px 4%; }
     }
+    .lang-toggle {
+      font-size: .85rem; font-weight: 700; color: var(--purple);
+      padding: 7px 16px; border-radius: var(--radius-btn);
+      border: 2px solid var(--purple); background: transparent;
+      cursor: pointer; transition: background .25s, color .25s;
+      text-decoration: none; white-space: nowrap;
+    }
+    .lang-toggle:hover { background: var(--purple); color: var(--white); }
   </style>
 </head>
 
@@ -1357,6 +1365,7 @@
     </ul>
 
     <div class="nav-right">
+      <a href="shalabyverse_arabic.html" class="lang-toggle">🌐 العربية</a>
       <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;">Join the Whitelist</a>
     </div>
 

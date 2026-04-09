@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6B21A8;--purple-dark:#4A0E7A;--purple-light:#EDE9FE;--purple-pale:#F5F3FF;
+  --orange:#EA580C;--orange-light:#FFF7ED;--orange-hover:#C2410C;
+  --text-dark:#1E1B2E;--text-mid:#4B4568;--text-light:#8B80A8;--white:#FFFFFF;
+  --shadow-card:0 4px 24px rgba(107,33,168,0.08);--radius-card:20px;--radius-btn:50px;
+  --accent:#EA580C;--accent-light:#FFF3E0;
+  --font-ar:'Tajawal',sans-serif;
+}
+body{font-family:var(--font-ar);color:var(--text-dark);background:var(--white);direction:rtl;overflow-x:hidden;line-height:1.6}
+a{text-decoration:none;color:inherit}ul{list-style:none}
+
+/* NAVBAR */
+.navbar{position:sticky;top:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);border-bottom:1px solid rgba(107,33,168,.07)}
+.nav-logo-text{font-size:1.4rem;font-weight:900;color:var(--orange)}
+.nav-back{font-size:.88rem;font-weight:700;color:var(--text-mid);display:flex;align-items:center;gap:6px;transition:color .2s}
+.nav-back:hover{color:var(--purple)}
+.btn-sm{background:var(--orange);color:var(--white);font-family:var(--font-ar);font-size:.82rem;font-weight:800;padding:8px 18px;border-radius:var(--radius-btn);border:none;cursor:pointer;transition:background .2s,transform .2s}
+.btn-sm:hover{background:var(--orange-hover);transform:translateY(-2px)}
+
+/* HERO */
+.verse-hero{min-height:520px;background:linear-gradient(135deg,#3D0A06 0%,#7C2D12 40%,var(--accent) 100%);display:flex;align-items:center;padding:90px 5% 64px;position:relative;overflow:hidden}
+.verse-hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(255,255,255,.06) 0%,transparent 70%);top:-80px;left:-60px;border-radius:50%;pointer-events:none}
+.verse-hero-inner{max-width:1100px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center;position:relative;z-index:1}
+.verse-hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:50px;padding:5px 14px;font-size:.75rem;font-weight:800;color:rgba(255,255,255,.85);text-transform:uppercase;letter-spacing:.6px;margin-bottom:18px}
+.verse-hero h1{font-size:clamp(2rem,4vw,3rem);font-weight:900;color:var(--white);line-height:1.18;letter-spacing:-.5px;margin-bottom:14px}
+.verse-hero h1 span{color:#FCD34D}
+.verse-hero-sub{font-size:1rem;color:rgba(255,255,255,.78);font-weight:500;max-width:460px;line-height:1.8;margin-bottom:28px}
+.verse-hero-meta{display:flex;gap:14px;flex-wrap:wrap}
+.meta-pill{display:flex;align-items:center;gap:6px;background:rgba(255,255,255,.1);border-radius:50px;padding:6px 14px;font-size:.8rem;font-weight:700;color:rgba(255,255,255,.9)}
+
+/* CODE WINDOW */
+.code-window{background:#1a1025;border-radius:18px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.4);border:1.5px solid rgba(255,255,255,.08);animation:floatSlow 6s ease-in-out infinite}
+@keyframes floatSlow{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+.code-topbar{display:flex;align-items:center;gap:8px;padding:14px 18px;background:rgba(255,255,255,.04)}
+.code-dots{display:flex;gap:5px}
+.code-dots span{width:10px;height:10px;border-radius:50%}
+.code-dots span:nth-child(1){background:#FF5F56}.code-dots span:nth-child(2){background:#FFBD2E}.code-dots span:nth-child(3){background:#27C93F}
+.code-tab{font-size:.7rem;font-weight:700;color:rgba(255,255,255,.5);background:rgba(255,255,255,.06);padding:4px 12px;border-radius:6px;margin-right:auto}
+.code-body{padding:20px;font-family:'Courier New',monospace;font-size:.82rem;line-height:2;color:rgba(255,255,255,.7);direction:ltr;text-align:left}
+.kw{color:#C084FC}.fn{color:#FCD34D}.str{color:#4ADE80}.cm{color:rgba(255,255,255,.3);font-style:italic}.num{color:#FB923C}.op{color:#60A5FA}
+
+/* SECTIONS */
+.section{padding:80px 5%;max-width:1100px;margin:0 auto}
+.section-full{padding:80px 5%;background:var(--purple-pale)}
+.section-full .section-inner{max-width:1100px;margin:0 auto}
+.section-tag{display:inline-flex;align-items:center;background:var(--accent-light);color:var(--accent);font-size:.75rem;font-weight:800;letter-spacing:.6px;text-transform:uppercase;padding:5px 14px;border-radius:50px;margin-bottom:14px}
+.section-title{font-size:clamp(1.6rem,3vw,2.2rem);font-weight:900;color:var(--text-dark);line-height:1.2;margin-bottom:12px;letter-spacing:-.3px}
+.section-title span{color:var(--purple)}
+.section-subtitle{font-size:.94rem;color:var(--text-light);font-weight:500;max-width:520px;line-height:1.7}
+
+/* ROADMAP */
+.roadmap{margin-top:48px;position:relative}
+.roadmap::before{content:'';position:absolute;right:28px;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--accent),var(--purple),#4ADE80);border-radius:4px}
+.roadmap-phase{position:relative;padding-right:72px;margin-bottom:48px}
+.roadmap-phase:last-child{margin-bottom:0}
+.roadmap-dot{position:absolute;right:16px;top:4px;width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:900;color:var(--white)}
+.rd1{background:var(--accent)}.rd2{background:var(--purple)}.rd3{background:#4ADE80}
+.roadmap-phase h3{font-size:1.1rem;font-weight:900;color:var(--text-dark);margin-bottom:4px}
+.roadmap-phase h3 em{font-style:normal;color:var(--accent)}
+.roadmap-weeks{font-size:.74rem;font-weight:700;color:var(--text-light);text-transform:uppercase;letter-spacing:.5px;margin-bottom:12px}
+.roadmap-modules{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px}
+.module-card{background:var(--white);border-radius:14px;padding:18px 20px;border:1.5px solid rgba(107,33,168,.06);box-shadow:var(--shadow-card);transition:transform .25s,box-shadow .25s}
+.module-card:hover{transform:translateY(-3px);box-shadow:0 12px 32px rgba(107,33,168,.12)}
+.module-num{font-size:.68rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.module-name{font-size:.95rem;font-weight:800;color:var(--text-dark);margin-bottom:6px}
+.module-desc{font-size:.82rem;color:var(--text-light);font-weight:500;line-height:1.5}
+.module-skills{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.module-skill{font-size:.68rem;font-weight:700;color:var(--purple);background:var(--purple-light);padding:3px 9px;border-radius:50px}
+
+/* PROJECTS */
+.projects-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:40px}
+.project-card{background:var(--white);border-radius:var(--radius-card);overflow:hidden;box-shadow:var(--shadow-card);border:1.5px solid rgba(107,33,168,.06);transition:transform .25s,box-shadow .25s}
+.project-card:hover{transform:translateY(-4px);box-shadow:0 16px 40px rgba(107,33,168,.12)}
+.project-thumb{height:140px;display:flex;align-items:center;justify-content:center;font-size:2.8rem}
+.pt1{background:linear-gradient(135deg,#FFF7ED,#FFEDD5)}.pt2{background:linear-gradient(135deg,#EDE9FE,#DDD6FE)}.pt3{background:linear-gradient(135deg,#ECFDF5,#D1FAE5)}
+.project-info{padding:20px}
+.project-phase{font-size:.68rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:.5px;margin-bottom:4px}
+.project-name{font-size:1.05rem;font-weight:900;color:var(--text-dark);margin-bottom:6px}
+.project-desc{font-size:.82rem;color:var(--text-light);font-weight:500;line-height:1.5}
+
+/* SKILLS */
+.skills-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:40px}
+.skill-card{text-align:center;background:var(--white);border-radius:16px;padding:28px 18px;box-shadow:var(--shadow-card);border:1.5px solid rgba(107,33,168,.06);transition:transform .25s}
+.skill-card:hover{transform:translateY(-4px)}
+.skill-icon{font-size:2rem;margin-bottom:12px}
+.skill-name{font-size:.92rem;font-weight:800;color:var(--text-dark);margin-bottom:4px}
+.skill-detail{font-size:.78rem;color:var(--text-light);font-weight:500;line-height:1.5}
+
+/* TOOLS BAND */
+.tools-band{padding:60px 5%;background:linear-gradient(90deg,var(--purple-dark),var(--purple))}
+.tools-inner{max-width:1100px;margin:0 auto;text-align:center}
+.tools-inner h2{font-size:1.4rem;font-weight:900;color:var(--white);margin-bottom:28px}
+.tools-row{display:flex;justify-content:center;flex-wrap:wrap;gap:14px}
+.tool-chip{display:flex;align-items:center;gap:8px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);border-radius:50px;padding:8px 18px;font-size:.82rem;font-weight:700;color:rgba(255,255,255,.9);transition:background .2s}
+.tool-chip:hover{background:rgba(255,255,255,.18)}
+
+/* CTA */
+.verse-cta{padding:80px 5%;text-align:center;background:linear-gradient(135deg,#3D0A06,#7C2D12 60%,var(--accent));position:relative;overflow:hidden}
+.verse-cta::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 0%,rgba(255,255,255,.06) 0%,transparent 70%)}
+.verse-cta-inner{position:relative;z-index:1}
+.verse-cta h2{font-size:clamp(1.6rem,3vw,2.3rem);font-weight:900;color:var(--white);margin-bottom:10px}
+.verse-cta p{font-size:.95rem;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:28px}
+.btn-big{background:var(--white);color:var(--accent);font-family:var(--font-ar);font-size:1rem;font-weight:900;padding:14px 36px;border-radius:var(--radius-btn);border:none;cursor:pointer;transition:transform .2s,box-shadow .2s;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.btn-big:hover{transform:translateY(-3px);box-shadow:0 14px 36px rgba(0,0,0,.3)}
+
+/* FOOTER */
+.footer{background:var(--text-dark);padding:28px 5%}
+.footer-inner{max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:14px}
+.footer-logo{font-size:1.2rem;font-weight:900;color:var(--white)}
+.footer-logo span{color:var(--orange)}
+.footer-copy{font-size:.76rem;color:rgba(255,255,255,.35);font-weight:500}
+.footer-back{font-size:.82rem;font-weight:700;color:var(--orange)}
+.footer-back:hover{color:var(--white)}
+
+@media(max-width:900px){
+  .verse-hero-inner{grid-template-columns:1fr;text-align:center}.code-window{display:none}
+  .projects-grid{grid-template-columns:1fr 1fr}.skills-grid{grid-template-columns:1fr 1fr}
+  .roadmap::before{right:18px}.roadmap-phase{padding-right:56px}.roadmap-dot{right:6px}
+}
+@media(max-width:600px){.projects-grid{grid-template-columns:1fr}.skills-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:420px){.skills-grid{grid-template-columns:1fr}}
+.lang-toggle{font-size:.85rem;font-weight:700;color:var(--purple);padding:7px 16px;border-radius:var(--radius-btn);border:2px solid var(--purple);background:transparent;cursor:pointer;transition:background .25s,color .25s;text-decoration:none;white-space:nowrap}
+.lang-toggle:hover{background:var(--purple);color:var(--white)}
+</style>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <a href="shalabyverse_arabic.html" class="nav-logo"><span class="nav-logo-text">ShalabyVerse</span></a>
+  <a href="shalabyverse_arabic.html" class="nav-back">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+    العودة للرئيسية
+  </a>
+  <a href="codeverse.html" class="lang-toggle">🌐 English</a>
+  <button class="btn-sm">انضم لقائمة الانتظار</button>
+</nav>
+
+<!-- HERO -->
+<section class="verse-hero">
+  <div class="verse-hero-inner">
+    <div>
+      <div class="verse-hero-badge">💻 CodeVerse</div>
+      <h1>تعلّم البرمجة من خلال <span>بناء أشياء حقيقية.</span></h1>
+      <p class="verse-hero-sub">CodeVerse رحلة برمجية منظمة — من الصفر لبناء مشاريع حقيقية. طفلك يتعلم Python من خلال مهام موجَّهة، مش فيديوهات عشوائية.</p>
+      <div class="verse-hero-meta">
+        <div class="meta-pill">✓ من ٩ إلى ١٦ سنة</div>
+        <div class="meta-pill">📦 ٣٦ وحدة</div>
+        <div class="meta-pill">🔥 ٣ مراحل</div>
+      </div>
+    </div>
+    <div>
+      <div class="code-window">
+        <div class="code-topbar">
+          <div class="code-dots"><span></span><span></span><span></span></div>
+          <div class="code-tab">mission_07.py</div>
+        </div>
+        <div class="code-body">
+          <span class="cm"># المهمة ٠٧: ابنِ آلة حاسبة</span><br><br>
+          <span class="kw">def</span> <span class="fn">calculate</span>(a, b, op):<br>
+          &nbsp;&nbsp;<span class="kw">if</span> op <span class="op">==</span> <span class="str">"+"</span>:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> a <span class="op">+</span> b<br>
+          &nbsp;&nbsp;<span class="kw">elif</span> op <span class="op">==</span> <span class="str">"-"</span>:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<span class="kw">return</span> a <span class="op">-</span> b<br><br>
+          result <span class="op">=</span> <span class="fn">calculate</span>(<span class="num">15</span>, <span class="num">7</span>, <span class="str">"+"</span>)<br>
+          <span class="fn">print</span>(<span class="str">f"الناتج: {result}"</span>)<br>
+          <span class="cm"># → الناتج: 22  ✓</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section class="section">
+  <div class="section-tag">المنهج</div>
+  <h2 class="section-title">ثلاث مراحل نحو <span>الإتقان</span></h2>
+  <p class="section-subtitle">كل مرحلة تبني على اللي قبلها. الطالب يتقدم بمعدله الخاص عبر وحدات واضحة ومشاريع حقيقية.</p>
+
+  <div class="roadmap">
+    <!-- PHASE 1 -->
+    <div class="roadmap-phase">
+      <div class="roadmap-dot rd1">١</div>
+      <h3><em>المرحلة الأولى</em> — أساسيات البرمجة</h3>
+      <div class="roadmap-weeks">الأسابيع ١–١٢ · ١٢ وحدة</div>
+      <div class="roadmap-modules">
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠١</div>
+          <div class="module-name">ما هو الكود؟</div>
+          <div class="module-desc">اكتشف ما هي البرمجة، وكيف تفكر الحواسيب، واكتب أول أسطر كود في حياتك.</div>
+          <div class="module-skills"><span class="module-skill">مقدمة</span><span class="module-skill">منطق</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٢</div>
+          <div class="module-name">المتغيرات وأنواع البيانات</div>
+          <div class="module-desc">خزّن المعلومات في متغيرات — نصوص، أرقام، قيم منطقية — وتعلّم كيف تتدفق البيانات.</div>
+          <div class="module-skills"><span class="module-skill">متغيرات</span><span class="module-skill">أنواع</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٣</div>
+          <div class="module-name">الإدخال والإخراج</div>
+          <div class="module-desc">ابنِ برامج تتكلم مع المستخدم — تأخذ إدخالاً، تعالجه، وتعرض النتائج.</div>
+          <div class="module-skills"><span class="module-skill">I/O</span><span class="module-skill">نصوص</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٤</div>
+          <div class="module-name">الشروط والتفريع</div>
+          <div class="module-desc">علّم البرامج اتخاذ القرارات باستخدام if وelif وelse — قلب المنطق البرمجي.</div>
+          <div class="module-skills"><span class="module-skill">If/Else</span><span class="module-skill">منطق</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 2 -->
+    <div class="roadmap-phase">
+      <div class="roadmap-dot rd2">٢</div>
+      <h3><em>المرحلة الثانية</em> — المتغيرات والمنطق</h3>
+      <div class="roadmap-weeks">الأسابيع ١٣–٢٤ · ١٢ وحدة</div>
+      <div class="roadmap-modules">
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٥</div>
+          <div class="module-name">الحلقات — For و While</div>
+          <div class="module-desc">أتمت المهام المتكررة بالحلقات. ابنِ أنماطاً وعدّادات وألعاباً تفاعلية.</div>
+          <div class="module-skills"><span class="module-skill">حلقات</span><span class="module-skill">تكرار</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٦</div>
+          <div class="module-name">القوائم والمجموعات</div>
+          <div class="module-desc">نظّم البيانات في قوائم، تعامل مع العناصر، فرّز وحوّل المجموعات.</div>
+          <div class="module-skills"><span class="module-skill">قوائم</span><span class="module-skill">مصفوفات</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٧</div>
+          <div class="module-name">الدوال</div>
+          <div class="module-desc">اكتب كتلاً قابلة لإعادة الاستخدام. تعلّم المعاملات والقيم المُرجَعة وبنية الكود النظيف.</div>
+          <div class="module-skills"><span class="module-skill">دوال</span><span class="module-skill">نطاق</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٨</div>
+          <div class="module-name">تصحيح الأخطاء وحل المشكلات</div>
+          <div class="module-desc">تعلّم قراءة الأخطاء وتتبع الثغرات والتفكير كمهندس لحل المشكلات.</div>
+          <div class="module-skills"><span class="module-skill">تصحيح</span><span class="module-skill">تفكير</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PHASE 3 -->
+    <div class="roadmap-phase">
+      <div class="roadmap-dot rd3">٣</div>
+      <h3><em>المرحلة الثالثة</em> — الدوال والمشاريع</h3>
+      <div class="roadmap-weeks">الأسابيع ٢٥–٣٦ · ١٢ وحدة</div>
+      <div class="roadmap-modules">
+        <div class="module-card">
+          <div class="module-num">الوحدة ٠٩</div>
+          <div class="module-name">القواميس و JSON</div>
+          <div class="module-desc">تعامل مع بيانات المفتاح والقيمة، اقرأ ملفات JSON، وابنِ برامج مدفوعة بالبيانات.</div>
+          <div class="module-skills"><span class="module-skill">قواميس</span><span class="module-skill">JSON</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ١٠</div>
+          <div class="module-name">التعامل مع الملفات</div>
+          <div class="module-desc">اقرأ واكتب الملفات. ابنِ برامج تحفظ البيانات وتنشئ سجلات وتعالج النصوص.</div>
+          <div class="module-skills"><span class="module-skill">ملفات</span><span class="module-skill">I/O</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ١١</div>
+          <div class="module-name">الـ APIs وبيانات الإنترنت</div>
+          <div class="module-desc">اجلب البيانات من الإنترنت، تعامل مع الـ APIs، وابنِ برامج متصلة بالعالم الحقيقي.</div>
+          <div class="module-skills"><span class="module-skill">APIs</span><span class="module-skill">HTTP</span></div>
+        </div>
+        <div class="module-card">
+          <div class="module-num">الوحدة ١٢</div>
+          <div class="module-name">المشروع الختامي</div>
+          <div class="module-desc">ادمج كل ما تعلمته في مشروع نهائي — تطبيق حقيقي صممته وبنيته بنفسك.</div>
+          <div class="module-skills"><span class="module-skill">مشروع</span><span class="module-skill">محفظة أعمال</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<div class="section-full">
+  <div class="section-inner">
+    <div class="section-tag">المشاريع</div>
+    <h2 class="section-title">إيه اللي <span>هتبنيه</span></h2>
+    <p class="section-subtitle">مشاريع حقيقية في كل مرحلة — مش أمثلة للتمرين بس.</p>
+    <div class="projects-grid" style="margin-top:40px">
+      <div class="project-card">
+        <div class="project-thumb pt1">🧮</div>
+        <div class="project-info">
+          <div class="project-phase">المرحلة الأولى</div>
+          <div class="project-name">آلة حاسبة ذكية</div>
+          <div class="project-desc">آلة حاسبة تتعامل مع عمليات معقدة، ذاكرة، وتاريخ — مبنية من الصفر بـ Python.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb pt2">🎮</div>
+        <div class="project-info">
+          <div class="project-phase">المرحلة الثانية</div>
+          <div class="project-name">لعبة مغامرات نصية</div>
+          <div class="project-desc">لعبة اختر مغامرتك بنفسك فيها مخزون وتتبع نقاط ونهايات متعددة.</div>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-thumb pt3">🌤️</div>
+        <div class="project-info">
+          <div class="project-phase">المرحلة الثالثة</div>
+          <div class="project-name">لوحة بيانات الطقس</div>
+          <div class="project-desc">تطبيق حقيقي يجلب بيانات الطقس المباشرة من API ويعرضها بشكل جميل في الـ Terminal.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SKILLS -->
+<section class="section">
+  <div class="section-tag">المخرجات</div>
+  <h2 class="section-title">المهارات اللي طفلك <span>هيكتسبها</span></h2>
+  <p class="section-subtitle">مهارات قابلة للنقل تتجاوز البرمجة بكثير.</p>
+  <div class="skills-grid">
+    <div class="skill-card"><div class="skill-icon">🧠</div><div class="skill-name">التفكير المنطقي</div><div class="skill-detail">تحليل المشكلات المعقدة وتحويلها لحلول خطوة بخطوة.</div></div>
+    <div class="skill-card"><div class="skill-icon">⌨️</div><div class="skill-name">إتقان Python</div><div class="skill-detail">كتابة كود Python حقيقي — متغيرات، دوال، حلقات، ملفات، APIs.</div></div>
+    <div class="skill-card"><div class="skill-icon">🐛</div><div class="skill-name">تصحيح الأخطاء</div><div class="skill-detail">قراءة الأخطاء وتتبع الثغرات وحل المشكلات باستقلالية.</div></div>
+    <div class="skill-card"><div class="skill-icon">🚀</div><div class="skill-name">بناء المشاريع</div><div class="skill-detail">تخطيط وتصميم وبناء وعرض مشروع كامل من البداية للنهاية.</div></div>
+    <div class="skill-card"><div class="skill-icon">📐</div><div class="skill-name">التفكير الحسابي</div><div class="skill-detail">تجزئة المشكلات، التعرف على الأنماط، التجريد، وتصميم الخوارزميات.</div></div>
+    <div class="skill-card"><div class="skill-icon">🤝</div><div class="skill-name">التواصل</div><div class="skill-detail">شرح الأفكار التقنية بوضوح عبر تعليقات الكود والعروض التقديمية.</div></div>
+    <div class="skill-card"><div class="skill-icon">🔄</div><div class="skill-name">التحسين المستمر</div><div class="skill-detail">تطوير العمل من خلال حلقات التغذية الراجعة — اختبار، تحسين، تكرار.</div></div>
+    <div class="skill-card"><div class="skill-icon">🎯</div><div class="skill-name">التركيز والمثابرة</div><div class="skill-detail">بناء الانضباط عبر مهام منظمة بأهداف واضحة.</div></div>
+  </div>
+</section>
+
+<!-- TOOLS BAND -->
+<div class="tools-band">
+  <div class="tools-inner">
+    <h2>الأدوات واللغات في CodeVerse</h2>
+    <div class="tools-row">
+      <div class="tool-chip">🐍 Python</div>
+      <div class="tool-chip">📝 VS Code</div>
+      <div class="tool-chip">🖥️ Terminal / CLI</div>
+      <div class="tool-chip">📦 JSON والـ APIs</div>
+      <div class="tool-chip">🗂️ أنظمة الملفات</div>
+      <div class="tool-chip">🤖 Artemis AI Tutor</div>
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="verse-cta">
+  <div class="verse-cta-inner">
+    <h2>مستعد تبدأ CodeVerse؟</h2>
+    <p>أول سطر كود لطفلك على بُعد نقرة واحدة.</p>
+    <button class="btn-big">انضم لقائمة الانتظار ←</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-logo">Shalaby<span>Verse</span></div>
+    <p class="footer-copy">ShalabyVerse © ٢٠٢٦. جميع الحقوق محفوظة.</p>
+    <a href="shalabyverse_arabic.html" class="footer-back">العودة للرئيسية ←</a>
+  </div>
+</footer>

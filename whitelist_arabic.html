@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --purple:#6B21A8;--purple-dark:#4A0E7A;--purple-mid:#7C3AED;--purple-light:#EDE9FE;--purple-pale:#F5F3FF;
+  --orange:#EA580C;--orange-light:#FFF7ED;--orange-hover:#C2410C;
+  --text-dark:#1E1B2E;--text-mid:#4B4568;--text-light:#8B80A8;--white:#FFFFFF;
+  --radius-card:20px;--radius-btn:50px;
+  --font-ar:'Tajawal',sans-serif;
+  --green:#16A34A;--green-light:#ECFDF5;
+  --red:#DC2626;--red-light:#FEF2F2;
+}
+body{font-family:var(--font-ar);color:var(--text-dark);background:var(--white);direction:rtl;min-height:100vh;display:flex;flex-direction:column;overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* NAVBAR */
+.navbar{position:fixed;top:0;right:0;left:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 5%;height:72px;background:rgba(255,255,255,.85);backdrop-filter:blur(16px);border-bottom:1px solid rgba(107,33,168,.06);transition:box-shadow .3s}
+.navbar.scrolled{box-shadow:0 2px 20px rgba(107,33,168,.08)}
+.nav-logo-text{font-size:1.2rem;font-weight:900;color:var(--purple);letter-spacing:-.3px}
+.nav-home{font-family:var(--font-ar);font-size:.88rem;font-weight:700;color:var(--purple);padding:9px 22px;border-radius:var(--radius-btn);border:2px solid var(--purple);transition:background .25s,color .25s}
+.nav-home:hover{background:var(--purple);color:var(--white)}
+
+/* PAGE BODY */
+.page-body{flex:1;display:flex;align-items:center;justify-content:center;padding:110px 5% 60px;background:linear-gradient(170deg,var(--purple-pale) 0%,var(--white) 40%,var(--orange-light) 100%)}
+
+/* CARD */
+.whitelist-card{width:100%;max-width:540px;background:var(--white);border-radius:var(--radius-card);box-shadow:0 8px 40px rgba(107,33,168,.10);border:1.5px solid rgba(107,33,168,.06);padding:48px 40px;text-align:center;animation:fadeUp .6s ease both}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+.wl-icon{width:72px;height:72px;margin:0 auto 20px;border-radius:20px;background:linear-gradient(135deg,var(--purple-light),#DDD6FE);display:flex;align-items:center;justify-content:center;font-size:2rem}
+.wl-title{font-size:1.6rem;font-weight:900;color:var(--text-dark);margin-bottom:8px}
+.wl-title span{color:var(--orange)}
+.wl-subtitle{font-size:.92rem;font-weight:500;color:var(--text-light);margin-bottom:28px;line-height:1.7}
+
+/* FORM */
+.wl-form{display:flex;flex-direction:column;gap:14px}
+
+.wl-field{position:relative}
+.wl-field input{
+  width:100%;padding:14px 48px 14px 18px;
+  font-family:var(--font-ar);font-size:.95rem;font-weight:600;
+  color:var(--text-dark);background:var(--purple-pale);
+  border:2px solid transparent;border-radius:14px;outline:none;
+  transition:border-color .25s,background .25s;text-align:right
+}
+.wl-field input::placeholder{color:var(--text-light);font-weight:500}
+.wl-field input:focus{border-color:var(--purple-mid);background:var(--white)}
+.wl-field input.error{border-color:var(--red);background:var(--red-light)}
+.wl-field input.valid{border-color:var(--green)}
+.wl-field-icon{position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:1.1rem;opacity:.55;pointer-events:none}
+
+/* VALIDATION MSG */
+.field-msg{font-size:.76rem;font-weight:600;text-align:right;padding-right:4px;min-height:18px;transition:all .2s}
+.field-msg.error{color:var(--red)}
+.field-msg.ok{color:var(--green)}
+
+/* DIVIDER */
+.or-divider{display:flex;align-items:center;gap:12px;margin:4px 0}
+.or-divider::before,.or-divider::after{content:'';flex:1;height:1px;background:rgba(107,33,168,.1)}
+.or-divider span{font-size:.8rem;font-weight:700;color:var(--text-light)}
+
+/* SUBMIT */
+.wl-submit{width:100%;padding:15px;font-family:var(--font-ar);font-size:1rem;font-weight:800;color:var(--white);background:var(--orange);border:none;border-radius:var(--radius-btn);cursor:pointer;transition:background .25s,transform .2s;margin-top:4px}
+.wl-submit:hover{background:var(--orange-hover);transform:translateY(-2px)}
+.wl-submit:active{transform:scale(.98)}
+.wl-submit:disabled{background:#ccc;cursor:not-allowed;transform:none}
+
+.wl-note{font-size:.78rem;color:var(--text-light);font-weight:500;margin-top:2px}
+
+/* MAIN ERROR BANNER */
+.main-error{display:none;background:var(--red-light);border:1.5px solid rgba(220,38,38,.2);border-radius:12px;padding:12px 16px;font-size:.86rem;font-weight:700;color:var(--red);text-align:center}
+.main-error.show{display:block}
+
+/* SUCCESS */
+.wl-success{display:none;flex-direction:column;align-items:center;gap:14px;animation:fadeUp .5s ease both}
+.wl-success.show{display:flex}
+.wl-form.hidden{display:none}
+.wl-check{width:68px;height:68px;border-radius:50%;background:linear-gradient(135deg,#ECFDF5,#D1FAE5);display:flex;align-items:center;justify-content:center;font-size:2rem}
+.wl-success-title{font-size:1.4rem;font-weight:900;color:var(--text-dark)}
+.wl-success-msg{font-size:.9rem;color:var(--text-light);font-weight:500;line-height:1.7;max-width:360px}
+.wl-back{margin-top:4px;display:inline-block;font-size:.88rem;font-weight:700;color:var(--purple);padding:9px 24px;border:2px solid var(--purple);border-radius:var(--radius-btn);transition:background .25s,color .25s}
+.wl-back:hover{background:var(--purple);color:var(--white)}
+
+/* FOOTER */
+.footer{background:var(--text-dark);color:rgba(255,255,255,.5);padding:24px 5%;text-align:center;font-size:.8rem;font-weight:500}
+.footer a{color:rgba(255,255,255,.7);transition:color .2s}
+.footer a:hover{color:var(--white)}
+
+@media(max-width:560px){.whitelist-card{padding:36px 20px}.wl-title{font-size:1.35rem}}
+.lang-toggle{font-size:.85rem;font-weight:700;color:var(--purple);padding:7px 16px;border-radius:var(--radius-btn);border:2px solid var(--purple);background:transparent;cursor:pointer;transition:background .25s,color .25s;text-decoration:none;white-space:nowrap}
+.lang-toggle:hover{background:var(--purple);color:var(--white)}
+</style>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+  <a href="shalabyverse_arabic.html"><span class="nav-logo-text">ShalabyVerse</span></a>
+  <a href="whitelist.html" class="lang-toggle">🌐 English</a>
+  <a href="shalabyverse_arabic.html" class="nav-home">← العودة للرئيسية</a>
+</nav>
+
+<!-- MAIN -->
+<main class="page-body">
+  <div class="whitelist-card">
+    <div class="wl-icon">🚀</div>
+    <h1 class="wl-title">انضم <span>لقائمة الانتظار</span></h1>
+    <p class="wl-subtitle">كن أول من يعرف لما ShalabyVerse تطلق. ادخل بياناتك وهنفضل نبقّيك على الخبر.</p>
+
+    <!-- FORM -->
+    <form class="wl-form" id="wlForm" action="https://formsubmit.co/Abdelhamid@ShalabyVerse.com" method="POST">
+      <input type="hidden" name="_subject" value="تسجيل جديد في قائمة الانتظار – ShalabyVerse">
+      <input type="hidden" name="_captcha" value="false">
+      <input type="hidden" name="_next" value="">
+      <input type="hidden" name="_template" value="table">
+      <input type="text" name="_honey" style="display:none">
+
+      <!-- NAME -->
+      <div class="wl-field">
+        <span class="wl-field-icon">👤</span>
+        <input type="text" name="name" placeholder="اسمك الكريم" required autocomplete="name">
+      </div>
+
+      <!-- EMAIL -->
+      <div class="wl-field">
+        <span class="wl-field-icon">✉️</span>
+        <input type="email" name="email" placeholder="بريدك الإلكتروني" required autocomplete="email">
+      </div>
+
+      <!-- PHONE -->
+      <div class="wl-field">
+        <span class="wl-field-icon">📱</span>
+        <input type="tel" name="phone" placeholder="رقم جوالك" required autocomplete="tel">
+      </div>
+
+      <button type="submit" class="wl-submit">انضم لقائمة الانتظار ←</button>
+      <p class="wl-note">مفيش سبام خالص. بنبعت تحديثات الإطلاق بس.</p>
+    </form>
+
+    <!-- SUCCESS -->
+    <div class="wl-success" id="wlSuccess">
+      <div class="wl-check">✓</div>
+      <div class="wl-success-title">إنت في القائمة! 🎉</div>
+      <p class="wl-success-msg">هنعلّمك فور ما ShalabyVerse تكون جاهزة. ترقّب رسالة التأكيد.</p>
+      <a href="shalabyverse_arabic.html" class="wl-back">← العودة للرئيسية</a>
+    </div>
+  </div>
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  © ٢٠٢٦ ShalabyVerse. جميع الحقوق محفوظة. · <a href="shalabyverse_arabic.html">الرئيسية</a>
+</footer>
+
+<script>
+window.addEventListener('scroll',()=>{
+  document.getElementById('navbar').classList.toggle('scrolled',window.scrollY>10)
+});
+
+const nextField = document.querySelector('input[name="_next"]');
+if(nextField) nextField.value = window.location.href + '?submitted=true';
+
+if(window.location.search.includes('submitted=true')){
+  document.getElementById('wlForm').classList.add('hidden');
+  document.getElementById('wlSuccess').classList.add('show');
+}
+</script>
