@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShalabyVerse – Build Real Tech Skills</title>
+  <meta name="description" content="ShalabyVerse is a structured STEM platform where students aged 9–16 learn coding, data thinking, creativity, and systems through guided missions and measurable progress." />
+  <meta property="og:title" content="ShalabyVerse – Build Real Tech Skills" />
+  <meta property="og:description" content="Structured STEM learning for ages 9–16. Coding, data, creativity, and logic — all in one safe platform." />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🟣</text></svg>" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       CSS VARIABLES
+    ============================================================ */
+    :root {
+      --purple:        #6B21A8;
+      --purple-dark:   #4A0E7A;
+      --purple-mid:    #7C3AED;
+      --purple-light:  #EDE9FE;
+      --purple-pale:   #F5F3FF;
+      --orange:        #EA580C;
+      --orange-light:  #FFF7ED;
+      --orange-hover:  #C2410C;
+      --text-dark:     #1E1B2E;
+      --text-mid:      #4B4568;
+      --text-light:    #8B80A8;
+      --white:         #FFFFFF;
+      --shadow-soft:   0 8px 32px rgba(107,33,168,0.10);
+      --shadow-card:   0 4px 24px rgba(107,33,168,0.08);
+      --radius-card:   20px;
+      --radius-btn:    50px;
+      --font-en:       'Nunito', sans-serif;
+      --font-ar:       'Tajawal', sans-serif;
+    }
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Focus visible */
+    :focus-visible {
+      outline: 2px solid var(--purple);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+    section[id] { scroll-margin-top: 80px; }
+
+    body {
+      font-family: var(--font-en);
+      color: var(--text-dark);
+      background: var(--white);
+      overflow-x: hidden;
+      line-height: 1.6;
+    }
+
+    img { max-width: 100%; display: block; }
+    a   { text-decoration: none; color: inherit; }
+    ul  { list-style: none; }
+
+    /* ============================================================
+       SCROLL-REVEAL UTILITY  (JS adds .visible)
+    ============================================================ */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-left  { opacity:0; transform: translateX(-50px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal-right { opacity:0; transform: translateX(50px);  transition: opacity .7s ease, transform .7s ease; }
+    .reveal-left.visible, .reveal-right.visible { opacity:1; transform: translateX(0); }
+
+    /* stagger children */
+    .stagger > *:nth-child(1) { transition-delay: .05s; }
+    .stagger > *:nth-child(2) { transition-delay: .15s; }
+    .stagger > *:nth-child(3) { transition-delay: .25s; }
+    .stagger > *:nth-child(4) { transition-delay: .35s; }
+
+    /* ============================================================
+       NAVBAR
+    ============================================================ */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 6%;
+      height: 72px;
+      /* Glassmorphism */
+      background: rgba(255,255,255,0.80);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(107,33,168,0.08);
+      transition: box-shadow .3s;
+    }
+    .navbar.scrolled { box-shadow: 0 4px 30px rgba(107,33,168,0.12); }
+
+    /* Logo */
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .nav-logo img {
+      height: 44px;
+      width: auto;
+    }
+    .nav-logo-text {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--orange);
+      font-family: var(--font-en);
+      letter-spacing: -0.5px;
+    }
+
+    /* Nav links */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: .95rem;
+      font-weight: 600;
+      color: var(--text-mid);
+      position: relative;
+      transition: color .25s;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 2px;
+      background: var(--purple);
+      transition: width .3s;
+      border-radius: 2px;
+    }
+    .nav-links a:hover { color: var(--purple); }
+    .nav-links a:hover::after { width: 100%; }
+
+    /* Nav right: login + CTA */
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+    .nav-login {
+      font-size: .92rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      transition: color .25s;
+    }
+    .nav-login:hover { color: var(--purple); }
+
+    .btn-orange {
+      background: var(--orange);
+      color: var(--white);
+      font-family: var(--font-en);
+      font-size: .9rem;
+      font-weight: 800;
+      padding: 10px 22px;
+      border-radius: var(--radius-btn);
+      border: none;
+      cursor: pointer;
+      transition: background .25s, transform .2s, box-shadow .25s;
+      box-shadow: 0 4px 18px rgba(234,88,12,.28);
+      white-space: nowrap;
+    }
+    .btn-orange:hover {
+      background: var(--orange-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(234,88,12,.38);
+    }
+
+    /* Hamburger */
+    .hamburger { display:none; flex-direction: column; gap:5px; cursor:pointer; padding:4px; }
+    .hamburger span { display:block; width:24px; height:2.5px; background: var(--purple); border-radius:4px; transition: .3s; }
+
+    /* ============================================================
+       HERO SECTION
+    ============================================================ */
+    .hero {
+      min-height: 100vh;
+      background: linear-gradient(135deg, var(--purple-dark) 0%, var(--purple) 55%, #9333EA 100%);
+      display: flex;
+      align-items: center;
+      padding: 100px 6% 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative blobs */
+    .hero::before {
+      content: '';
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.06) 0%, transparent 70%);
+      top: -100px; right: -100px;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(234,88,12,0.12) 0%, transparent 70%);
+      bottom: -80px; left: 10%;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* Hero LEFT */
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-size: .82rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.9);
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+    .hero-badge svg { width:14px; height:14px; fill: var(--orange); }
+
+    .hero-title {
+      font-family: var(--font-en);
+      font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+      font-weight: 900;
+      line-height: 1.15;
+      color: var(--white);
+      margin-bottom: 10px;
+      letter-spacing: -1px;
+    }
+    .hero-title span { color: var(--orange); }
+
+    .hero-subtitle {
+      font-size: clamp(.95rem, 1.5vw, 1.1rem);
+      font-weight: 500;
+      color: rgba(255,255,255,.80);
+      max-width: 480px;
+      margin-bottom: 36px;
+      line-height: 1.7;
+    }
+    .hero-subtitle strong { color: var(--white); font-weight: 800; }
+
+    .hero-cta-row {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-ghost {
+      background: transparent;
+      color: var(--white);
+      font-family: var(--font-en);
+      font-size: .9rem;
+      font-weight: 700;
+      padding: 10px 22px;
+      border-radius: var(--radius-btn);
+      border: 2px solid rgba(255,255,255,.45);
+      cursor: pointer;
+      transition: border-color .25s, background .25s, transform .2s;
+    }
+    .btn-ghost:hover {
+      border-color: var(--white);
+      background: rgba(255,255,255,.1);
+      transform: translateY(-2px);
+    }
+
+    .hero-tags {
+      margin-top: 28px;
+      display: flex;
+      gap: 18px;
+      flex-wrap: wrap;
+    }
+    .hero-tag {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: .85rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.85);
+    }
+    .hero-tag svg { width:16px; height:16px; fill: #4ADE80; }
+
+    /* Hero RIGHT – floating mockup */
+    .hero-right {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+
+    .hero-mockup-wrap {
+      position: relative;
+      animation: float 5s ease-in-out infinite;
+      will-change: transform;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-18px); }
+    }
+
+    .hero-mockup-img {
+      width: 100%;
+      max-width: 480px;
+      border-radius: 24px;
+      box-shadow: 0 30px 80px rgba(0,0,0,.35);
+      border: 2px solid rgba(255,255,255,0.12);
+      /* Placeholder gradient */
+      background: linear-gradient(145deg, rgba(255,255,255,.15), rgba(255,255,255,.04));
+      aspect-ratio: 4/3;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      overflow: hidden;
+    }
+
+    /* Mockup screen decoration */
+    .mockup-screen {
+      width: 92%;
+      height: 92%;
+      background: linear-gradient(145deg, #1E0A38, #2D1455);
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      padding: 16px;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-topbar {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .mockup-dots { display:flex; gap:5px; }
+    .mockup-dots span {
+      width: 9px; height: 9px;
+      border-radius: 50%;
+      display: block;
+    }
+    .mockup-dots span:nth-child(1) { background:#FF5F56; }
+    .mockup-dots span:nth-child(2) { background:#FFBD2E; }
+    .mockup-dots span:nth-child(3) { background:#27C93F; }
+    .mockup-url {
+      flex: 1;
+      height: 22px;
+      background: rgba(255,255,255,.08);
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      padding: 0 10px;
+      font-size: .62rem;
+      color: rgba(255,255,255,.4);
+    }
+    .mockup-body {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    .mockup-card {
+      background: rgba(255,255,255,.07);
+      border-radius: 10px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .mockup-card-label {
+      font-size: .6rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .mockup-bar-wrap { display:flex; flex-direction:column; gap:4px; }
+    .mockup-bar {
+      height: 5px;
+      border-radius: 50px;
+      background: rgba(255,255,255,.1);
+      position: relative;
+      overflow: hidden;
+    }
+    .mockup-bar::after {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      border-radius: 50px;
+      animation: barLoad 2s ease forwards;
+    }
+    .mockup-bar.b1::after { width: 78%; background: var(--orange); }
+    .mockup-bar.b2::after { width: 55%; background: #A855F7; animation-delay: .2s; }
+    .mockup-bar.b3::after { width: 90%; background: #4ADE80; animation-delay: .4s; }
+    .mockup-bar.b4::after { width: 40%; background: #60A5FA; animation-delay: .6s; }
+
+    @keyframes barLoad {
+      from { width: 0; }
+    }
+
+    .mockup-badge-row {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: auto;
+    }
+    .mockup-badge {
+      font-size: .55rem;
+      font-weight: 700;
+      padding: 3px 8px;
+      border-radius: 50px;
+      background: rgba(234,88,12,.2);
+      color: #FB923C;
+    }
+    .mockup-badge.green { background:rgba(74,222,128,.15); color:#4ADE80; }
+
+    /* floating accent */
+    .hero-float-badge {
+      position: absolute;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 10px 14px;
+      box-shadow: 0 8px 30px rgba(0,0,0,.18);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+    .hero-float-badge.top-right {
+      top: -18px; right: -18px;
+      animation: float 4s ease-in-out 1s infinite;
+    }
+    .hero-float-badge.bottom-left {
+      bottom: -18px; left: -18px;
+      animation: float 4.5s ease-in-out .5s infinite;
+    }
+    .hero-float-badge .icon {
+      width: 32px; height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+    }
+    .hero-float-badge.top-right .icon { background: var(--orange-light); }
+    .hero-float-badge.bottom-left .icon { background: var(--purple-light); }
+
+    /* ============================================================
+       SECTION WRAPPER
+    ============================================================ */
+    .section {
+      padding: 90px 6%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .section-full {
+      padding: 90px 6%;
+      background: var(--purple-pale);
+    }
+    .section-full > .section { padding-top: 0; padding-bottom: 0; }
+
+    .section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--purple-light);
+      color: var(--purple);
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .6px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 50px;
+      margin-bottom: 14px;
+    }
+
+    .section-title {
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1.2;
+      margin-bottom: 12px;
+      letter-spacing: -.5px;
+    }
+    .section-title span { color: var(--purple); }
+
+    .section-subtitle {
+      font-size: 1rem;
+      color: var(--text-light);
+      font-weight: 500;
+      max-width: 560px;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       PROBLEM STATEMENT BAND
+    ============================================================ */
+    .problem-band {
+      background: linear-gradient(90deg, var(--purple-dark) 0%, var(--purple) 100%);
+      padding: 70px 6%;
+    }
+    .problem-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .problem-left h2 {
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.25;
+    }
+    .problem-divider {
+      width: 3px;
+      height: 80px;
+      background: rgba(255,255,255,.25);
+      border-radius: 4px;
+    }
+    .problem-right {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+    }
+    .problem-icon {
+      width: 46px; height: 46px;
+      flex-shrink: 0;
+      background: rgba(255,255,255,.12);
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.3rem;
+    }
+    .problem-right p {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,.85);
+      line-height: 1.6;
+      font-weight: 500;
+    }
+    .problem-right p strong { color: var(--white); }
+
+    /* ============================================================
+       VERSES CARDS GRID
+    ============================================================ */
+    .verses-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+      margin-top: 50px;
+    }
+
+    .verse-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: 28px 24px;
+      border: 1.5px solid rgba(107,33,168,.06);
+      border-top: 4px solid transparent;
+      transition: transform .3s ease, box-shadow .3s ease, border-top-color .3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .verse-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      border-radius: 3px 3px 0 0;
+      transition: opacity .3s;
+    }
+
+    @media (hover: hover) {
+      .verse-card:hover {
+        transform: scale(1.03) translateY(-4px);
+        box-shadow: 0 20px 50px rgba(107,33,168,.15);
+        border-top-color: var(--orange);
+      }
+    }
+
+    .verse-card-icon {
+      width: 50px; height: 50px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      margin-bottom: 14px;
+    }
+    .vc1 .verse-card-icon { background: #FFF3E0; }
+    .vc2 .verse-card-icon { background: #EDE9FE; }
+    .vc3 .verse-card-icon { background: #ECFDF5; }
+    .vc4 .verse-card-icon { background: #EFF6FF; }
+
+    .verse-card-name {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--purple);
+      margin-bottom: 2px;
+    }
+    .verse-card-sub {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--text-light);
+      letter-spacing: .4px;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+    .verse-card-ages {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      background: var(--purple-light);
+      color: var(--purple);
+      font-size: .72rem;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-bottom: 16px;
+    }
+    .verse-card-features {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .verse-card-features li {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      font-size: .84rem;
+      color: var(--text-mid);
+      font-weight: 500;
+      line-height: 1.4;
+    }
+    .verse-card-features li::before {
+      content: '✓';
+      color: var(--purple);
+      font-weight: 900;
+      font-size: .8rem;
+      margin-top: 1px;
+      flex-shrink: 0;
+    }
+
+    .verse-card-link {
+      font-size: .84rem;
+      font-weight: 800;
+      color: var(--purple);
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      transition: gap .2s, color .2s;
+    }
+    .verse-card-link:hover { color: var(--orange); gap: 8px; }
+
+    /* ============================================================
+       LEARNING ECOSYSTEM
+    ============================================================ */
+    .ecosystem-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .ecosystem-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .eco-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 34px 28px;
+      box-shadow: var(--shadow-card);
+      border: 1.5px solid rgba(107,33,168,.06);
+      text-align: center;
+      transition: transform .3s, box-shadow .3s;
+    }
+    @media (hover: hover) {
+      .eco-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 18px 48px rgba(107,33,168,.12);
+      }
+    }
+
+    .eco-icon {
+      width: 68px; height: 68px;
+      margin: 0 auto 18px;
+      border-radius: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .eco-icon svg { width:34px; height:34px; }
+
+    .ei1 { background: linear-gradient(135deg, #FFF3E0, #FFE0B2); }
+    .ei2 { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+    .ei3 { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); }
+
+    .eco-title {
+      font-size: 1.15rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .eco-title em { font-style: normal; color: var(--orange); }
+
+    .eco-desc {
+      font-size: .88rem;
+      color: var(--text-light);
+      font-weight: 500;
+      margin-bottom: 22px;
+      line-height: 1.6;
+    }
+
+    /* Progress bar group */
+    .eco-progress { display:flex; flex-direction:column; gap:10px; }
+    .eco-prog-item {}
+    .eco-prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      margin-bottom: 4px;
+    }
+    .eco-prog-bar {
+      height: 6px;
+      background: #EDE9FE;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .eco-prog-fill {
+      height: 100%;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--purple), var(--orange));
+      animation: ecoBarLoad 1.5s ease forwards;
+      width: 0;
+    }
+    @keyframes ecoBarLoad { to { width: var(--w); } }
+
+    .eco-tags { display:flex; flex-wrap:wrap; gap:7px; justify-content:center; }
+    .eco-tag {
+      background: var(--purple-light);
+      color: var(--purple);
+      font-size: .72rem;
+      font-weight: 700;
+      padding: 4px 11px;
+      border-radius: 50px;
+    }
+
+    /* ============================================================
+       DASHBOARD MOCKUP  (Parent Visibility Section)
+    ============================================================ */
+    .dashboard-section {
+      padding: 90px 6%;
+    }
+    .dashboard-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 70px;
+      align-items: center;
+    }
+
+    .dashboard-features {
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+      margin-top: 30px;
+    }
+    .dash-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+    .dash-feature-icon {
+      width: 44px; height: 44px;
+      flex-shrink: 0;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+    }
+    .dfi1 { background: #FFF3E0; }
+    .dfi2 { background: #EDE9FE; }
+    .dfi3 { background: #ECFDF5; }
+    .dfi4 { background: #FEF2F2; }
+
+    .dash-feature-text h4 {
+      font-size: .97rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      margin-bottom: 3px;
+    }
+    .dash-feature-text h4 strong { color: var(--orange); }
+    .dash-feature-text p {
+      font-size: .83rem;
+      color: var(--text-light);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    /* CSS Grid Dashboard UI */
+    .dashboard-ui {
+      background: #F8F5FF;
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: 0 20px 60px rgba(107,33,168,.13);
+      border: 1.5px solid rgba(107,33,168,.08);
+    }
+
+    .dash-ui-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+    .dash-ui-title {
+      font-size: 1rem;
+      font-weight: 900;
+      color: var(--purple);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .dash-ui-badge {
+      font-size: .7rem;
+      font-weight: 700;
+      background: var(--orange);
+      color: var(--white);
+      padding: 3px 9px;
+      border-radius: 50px;
+    }
+
+    .dash-ui-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 12px;
+    }
+
+    /* Stats row */
+    .dash-stat {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 10px rgba(107,33,168,.06);
+    }
+    .dash-stat-label {
+      font-size: .68rem;
+      font-weight: 700;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 6px;
+    }
+    .dash-stat-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--text-dark);
+      line-height: 1;
+    }
+    .dash-stat-value span { font-size: .75rem; font-weight: 600; color: var(--text-light); }
+    .dash-stat-trend {
+      font-size: .7rem;
+      font-weight: 700;
+      color: #4ADE80;
+      margin-top: 4px;
+    }
+
+    /* Progress chart – pure CSS */
+    .dash-chart {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 16px;
+      box-shadow: 0 2px 10px rgba(107,33,168,.06);
+      grid-column: 1 / -1;
+    }
+    .dash-chart-label {
+      font-size: .7rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 12px;
+    }
+    .dash-chart-bars {
+      display: flex;
+      align-items: flex-end;
+      gap: 6px;
+      height: 70px;
+    }
+    .chart-bar-wrap {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 5px;
+      height: 100%;
+      justify-content: flex-end;
+    }
+    .chart-bar {
+      width: 100%;
+      border-radius: 6px 6px 0 0;
+      animation: chartBarUp 1.2s cubic-bezier(.22,1,.36,1) forwards;
+      max-height: 60px;
+    }
+    @keyframes chartBarUp { from { height: 0; } }
+
+    .chart-bar-label {
+      font-size: .6rem;
+      font-weight: 700;
+      color: var(--text-light);
+    }
+
+    .dash-skills {
+      background: var(--white);
+      border-radius: 14px;
+      padding: 14px 16px;
+      box-shadow: 0 2px 10px rgba(107,33,168,.06);
+      grid-column: 1 / -1;
+    }
+    .dash-skills-label {
+      font-size: .7rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 10px;
+    }
+    .dash-skill-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+    .dash-skill-name {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      width: 100px;
+      flex-shrink: 0;
+    }
+    .dash-skill-bar {
+      flex: 1;
+      height: 7px;
+      background: #EDE9FE;
+      border-radius: 50px;
+      overflow: hidden;
+    }
+    .dash-skill-fill {
+      height: 100%;
+      border-radius: 50px;
+      animation: barLoad 1.5s ease forwards;
+    }
+    .sf1 { background: var(--orange); width: 78%; }
+    .sf2 { background: var(--purple); width: 62%; }
+    .sf3 { background: #4ADE80;       width: 90%; }
+    .sf4 { background: #60A5FA;       width: 44%; }
+
+    .dash-skill-pct {
+      font-size: .72rem;
+      font-weight: 800;
+      color: var(--text-mid);
+      width: 32px;
+      text-align: right;
+    }
+
+    /* ============================================================
+       CTA BANNER
+    ============================================================ */
+    .cta-banner {
+      background: linear-gradient(135deg, var(--purple-dark), var(--purple) 60%, #9333EA);
+      padding: 80px 6%;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(255,255,255,.07) 0%, transparent 70%);
+    }
+    .cta-banner-inner { position: relative; z-index: 1; }
+    .cta-banner h2 {
+      font-size: clamp(1.8rem, 3.5vw, 2.8rem);
+      font-weight: 900;
+      color: var(--white);
+      margin-bottom: 12px;
+      letter-spacing: -.5px;
+    }
+    .cta-banner p {
+      font-size: 1rem;
+      color: rgba(255,255,255,.75);
+      font-weight: 500;
+      margin-bottom: 32px;
+    }
+    .cta-banner-btns {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cta-note {
+      margin-top: 14px;
+      font-size: .8rem;
+      color: rgba(255,255,255,.5);
+      font-weight: 500;
+    }
+
+    /* ============================================================
+       FOOTER
+    ============================================================ */
+    .footer {
+      background: var(--text-dark);
+      padding: 40px 6% 28px;
+    }
+    .footer-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+    .footer-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+    }
+    .footer-logo {
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--white);
+    }
+    .footer-logo span { color: var(--orange); }
+
+    .footer-links {
+      display: flex;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+    .footer-links a {
+      font-size: .85rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.5);
+      transition: color .2s;
+    }
+    .footer-links a:hover { color: var(--white); }
+
+    .footer-social {
+      display: flex;
+      gap: 12px;
+    }
+    .social-btn {
+      width: 36px; height: 36px;
+      border-radius: 10px;
+      background: rgba(255,255,255,.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255,255,255,.6);
+      font-size: .95rem;
+      transition: background .2s, color .2s;
+      cursor: pointer;
+    }
+    .social-btn:hover { background: var(--orange); color: var(--white); }
+
+    .footer-bottom {
+      padding-top: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-bottom p {
+      font-size: .78rem;
+      color: rgba(255,255,255,.3);
+      font-weight: 500;
+    }
+    .footer-email {
+      font-size: .78rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    /* ============================================================
+       CONTACT
+    ============================================================ */
+    .contact-section {
+      padding: 90px 6%;
+      background: var(--white);
+    }
+    .contact-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .contact-cards {
+      max-width: 720px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .contact-card {
+      background: var(--white);
+      border-radius: var(--radius-card);
+      padding: 36px 28px;
+      border: 1.5px solid rgba(107,33,168,.08);
+      box-shadow: var(--shadow-card);
+      text-align: center;
+      transition: transform .3s, box-shadow .3s;
+    }
+    @media (hover: hover) {
+      .contact-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 20px 50px rgba(107,33,168,.14);
+      }
+    }
+    .contact-icon {
+      width: 64px; height: 64px;
+      margin: 0 auto 18px;
+      border-radius: 18px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.6rem;
+    }
+    .ci-phone { background: linear-gradient(135deg, #ECFDF5, #D1FAE5); }
+    .ci-email { background: linear-gradient(135deg, #EDE9FE, #DDD6FE); }
+    .contact-label {
+      font-size: .78rem;
+      font-weight: 800;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+      margin-bottom: 8px;
+    }
+    .contact-value {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-dark);
+      word-break: break-all;
+    }
+    .contact-value a {
+      color: var(--purple);
+      transition: color .2s;
+    }
+    .contact-value a:hover { color: var(--orange); }
+
+    @media (max-width: 600px) {
+      .contact-cards { grid-template-columns: 1fr; max-width: 360px; }
+    }
+
+    /* ============================================================
+       FAQ
+    ============================================================ */
+    .faq-section {
+      padding: 90px 6%;
+      background: var(--purple-pale);
+    }
+    .faq-header {
+      text-align: center;
+      margin-bottom: 50px;
+    }
+    .faq-list {
+      max-width: 780px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1.5px solid rgba(107,33,168,.06);
+      overflow: hidden;
+      transition: box-shadow .3s;
+    }
+    .faq-item.open { box-shadow: 0 8px 30px rgba(107,33,168,.1); }
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 24px;
+      background: transparent;
+      border: none;
+      font-family: var(--font-en);
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-dark);
+      cursor: pointer;
+      text-align: left;
+      gap: 16px;
+    }
+    .faq-question:hover { color: var(--purple); }
+    .faq-chevron {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      transition: transform .3s;
+      color: var(--purple);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .4s ease, padding .4s ease;
+    }
+    .faq-item.open .faq-answer {
+      max-height: 300px;
+    }
+    .faq-answer-inner {
+      padding: 0 24px 20px;
+      font-size: .9rem;
+      color: var(--text-light);
+      font-weight: 500;
+      line-height: 1.7;
+    }
+
+    /* ============================================================
+       MOBILE MENU
+    ============================================================ */
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      top: 72px; left: 0; right: 0;
+      background: rgba(255,255,255,.97);
+      backdrop-filter: blur(18px);
+      padding: 20px 6% 30px;
+      z-index: 999;
+      box-shadow: 0 8px 30px rgba(107,33,168,.1);
+      flex-direction: column;
+      gap: 16px;
+      border-bottom: 1px solid rgba(107,33,168,.08);
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--text-mid);
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(107,33,168,.06);
+    }
+    .mobile-menu .btn-orange { margin-top: 8px; text-align: center; }
+
+    /* ============================================================
+       RESPONSIVE
+    ============================================================ */
+    @media (max-width: 1024px) {
+      .verses-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-mockup-img { max-width: 380px; }
+    }
+
+    @media (max-width: 900px) {
+      .problem-inner { grid-template-columns: 1fr; gap: 20px; }
+      .problem-divider { display: none; }
+      .ecosystem-grid { grid-template-columns: 1fr 1fr; }
+      .dashboard-inner { grid-template-columns: 1fr; gap: 40px; }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-login { display: none; }
+      .hamburger { display: flex; }
+      .hero-inner { grid-template-columns: 1fr; text-align: center; gap: 40px; }
+      .hero-subtitle { margin: 0 auto 30px; }
+      .hero-cta-row { justify-content: center; }
+      .hero-tags { justify-content: center; }
+      .hero-right { display: none; }
+      .verses-grid { grid-template-columns: 1fr; }
+      .ecosystem-grid { grid-template-columns: 1fr; }
+      .footer-top { flex-direction: column; align-items: flex-start; }
+    }
+
+    @media (max-width: 480px) {
+      .navbar { padding: 0 4%; }
+      .hero { padding: 100px 4% 50px; }
+      .section { padding: 60px 4%; }
+      .section-full { padding: 60px 4%; }
+    }
+    .lang-toggle {
+      font-size: .85rem; font-weight: 700; color: var(--purple);
+      padding: 7px 16px; border-radius: var(--radius-btn);
+      border: 2px solid var(--purple); background: transparent;
+      cursor: pointer; transition: background .25s, color .25s;
+      text-decoration: none; white-space: nowrap;
+    }
+    .lang-toggle:hover { background: var(--purple); color: var(--white); }
+  </style>
+</head>
+
+<body>
+
+  <!-- ============================================================
+       NAVBAR
+  ============================================================ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Main navigation">
+    <div class="nav-logo">
+      <img src="logo 01.png" alt="ShalabyVerse logo" height="44">
+      <span class="nav-logo-text">ShalabyVerse</span>
+    </div>
+
+    <ul class="nav-links" role="list">
+      <li><a href="#curriculum">Curriculum</a></li>
+      <li><a href="#contact">Contact</a></li>
+      <li><a href="#faqs">FAQs</a></li>
+    </ul>
+
+    <div class="nav-right">
+      <a href="index.html" class="lang-toggle">🌐 العربية</a>
+      <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;">Join the Whitelist</a>
+    </div>
+
+    <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div class="mobile-menu" id="mobile-menu" role="menu">
+    <a href="#curriculum" onclick="closeMobileMenu()">Curriculum</a>
+    <a href="#contact"    onclick="closeMobileMenu()">Contact</a>
+    <a href="#faqs"       onclick="closeMobileMenu()">FAQs</a>
+    <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;" onclick="closeMobileMenu()">Join the Whitelist</a>
+  </div>
+
+  <!-- ============================================================
+       HERO SECTION
+  ============================================================ -->
+  <section class="hero" id="home" aria-labelledby="hero-heading">
+    <div class="hero-inner">
+
+      <!-- Left column -->
+      <div class="hero-left reveal-left">
+        <div class="hero-badge">
+          <svg viewBox="0 0 16 16"><path d="M8 1l1.85 3.75L14 5.5l-3 2.92.71 4.13L8 10.4l-3.71 2.15L5 8.42 2 5.5l4.15-.75L8 1z"/></svg>
+          Structured STEM Learning
+        </div>
+
+        <h1 class="hero-title" id="hero-heading">
+          Build Real Tech Skills —<br>
+          <span>Without Wasting</span> Screen Time.
+        </h1>
+
+        <p class="hero-subtitle">
+          Verse is a structured STEM platform where students learn coding through guided missions,
+          measurable progress, and a <strong>safe</strong> digital environment.
+        </p>
+
+        <div class="hero-cta-row">
+          <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;">Join the Whitelist</a>
+          <button class="btn-ghost" onclick="scrollToSection('curriculum')">View Curriculum</button>
+        </div>
+
+        <div class="hero-tags">
+          <div class="hero-tag">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.85 3.75L14 5.5l-3 2.92.71 4.13L8 10.4l-3.71 2.15L5 8.42 2 5.5l4.15-.75L8 1z"/></svg>
+            Ages 9–16
+          </div>
+          <div class="hero-tag">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.85 3.75L14 5.5l-3 2.92.71 4.13L8 10.4l-3.71 2.15L5 8.42 2 5.5l4.15-.75L8 1z"/></svg>
+            Structured Skill Paths
+          </div>
+          <div class="hero-tag">
+            <svg viewBox="0 0 16 16"><path d="M8 1l1.85 3.75L14 5.5l-3 2.92.71 4.13L8 10.4l-3.71 2.15L5 8.42 2 5.5l4.15-.75L8 1z"/></svg>
+            Parent Dashboard
+          </div>
+        </div>
+      </div>
+
+      <!-- Right column – animated mockup -->
+      <div class="hero-right reveal-right">
+        <div class="hero-mockup-wrap">
+          <div class="hero-float-badge top-right">
+            <div class="icon">🚀</div>
+            <div>
+              <div style="font-size:.65rem;color:var(--text-light);font-weight:600;">New missions</div>
+              <div>Ready to launch!</div>
+            </div>
+          </div>
+
+          <div class="hero-mockup-img" aria-label="Verse learning platform preview">
+            <div class="mockup-screen">
+              <div class="mockup-topbar">
+                <div class="mockup-dots">
+                  <span></span><span></span><span></span>
+                </div>
+                <div class="mockup-url">verselsgaming.com</div>
+              </div>
+              <div class="mockup-body">
+                <div class="mockup-card">
+                  <div class="mockup-card-label">Skill Progress</div>
+                  <div class="mockup-bar-wrap">
+                    <div class="mockup-bar b1"></div>
+                    <div class="mockup-bar b2"></div>
+                    <div class="mockup-bar b3"></div>
+                  </div>
+                  <div class="mockup-badge-row">
+                    <span class="mockup-badge">Python</span>
+                    <span class="mockup-badge green">Logic ✓</span>
+                  </div>
+                </div>
+                <div class="mockup-card">
+                  <div class="mockup-card-label">Today's Mission</div>
+                  <div style="background:rgba(234,88,12,.15);border-radius:8px;padding:8px;margin:4px 0;">
+                    <div style="font-size:.62rem;color:#FB923C;font-weight:700;">Mission 07</div>
+                    <div style="font-size:.7rem;color:rgba(255,255,255,.8);font-weight:600;">Build a Calculator</div>
+                  </div>
+                  <div class="mockup-bar b4"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-float-badge bottom-left">
+            <div class="icon">🎯</div>
+            <div>
+              <div style="font-size:.65rem;color:var(--text-light);font-weight:600;">Weekly streak</div>
+              <div>7 days 🔥</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROBLEM BAND
+  ============================================================ -->
+  <div class="problem-band">
+    <div class="problem-inner">
+      <div class="problem-left reveal">
+        <h2>Most Kids Play Games.<br>Few Actually Build Skills.</h2>
+      </div>
+      <div class="problem-divider"></div>
+      <div class="problem-right reveal">
+        <div class="problem-icon">💡</div>
+        <p>Verse turns <strong>engagement</strong> into <strong>structured learning</strong> — so screen time becomes a real investment in your child's future.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       4 VERSE CARDS
+  ============================================================ -->
+  <section class="section" id="curriculum" aria-labelledby="verses-heading">
+    <div class="section-tag">Our Learning Paths</div>
+    <h2 class="section-title reveal" id="verses-heading">
+      Four Worlds of <span>Knowledge</span>
+    </h2>
+    <p class="section-subtitle reveal">
+      Each Verse is a complete, structured learning journey designed for different skills and age groups.
+    </p>
+
+    <div class="verses-grid stagger">
+      <!-- Card 1: CodeVerse -->
+      <article class="verse-card vc1 reveal" aria-labelledby="cv-title">
+        <div class="verse-card-icon" aria-hidden="true">💻</div>
+        <div class="verse-card-name" id="cv-title">CodeVerse</div>
+        <div class="verse-card-sub">Programming</div>
+        <div class="verse-card-ages">✓ Ages 9–16</div>
+        <ul class="verse-card-features">
+          <li>Programming Foundations</li>
+          <li>Variables &amp; Logic</li>
+          <li>Functions &amp; Projects</li>
+        </ul>
+        <a href="codeverse.html" class="verse-card-link">View Details →</a>
+      </article>
+
+      <!-- Card 2: DataVerse -->
+      <article class="verse-card vc2 reveal" aria-labelledby="dv-title">
+        <div class="verse-card-icon" aria-hidden="true">📊</div>
+        <div class="verse-card-name" id="dv-title">DataVerse</div>
+        <div class="verse-card-sub">Clear Thinking</div>
+        <div class="verse-card-ages">✓ Ages 10–16</div>
+        <ul class="verse-card-features">
+          <li>Data Thinking</li>
+          <li>Data Visualization</li>
+          <li>Data Logic</li>
+        </ul>
+        <a href="dataverse.html" class="verse-card-link">View Details →</a>
+      </article>
+
+      <!-- Card 3: CreativeVerse -->
+      <article class="verse-card vc3 reveal" aria-labelledby="crv-title">
+        <div class="verse-card-icon" aria-hidden="true">🎨</div>
+        <div class="verse-card-name" id="crv-title">CreativeVerse</div>
+        <div class="verse-card-sub">Content Creation</div>
+        <div class="verse-card-ages">✓ Ages 9–14</div>
+        <ul class="verse-card-features">
+          <li>Computational Creativity</li>
+          <li>Digital Design</li>
+          <li>Story-telling</li>
+        </ul>
+        <a href="creativeverse.html" class="verse-card-link">View Details →</a>
+      </article>
+
+      <!-- Card 4: ComputeVerse -->
+      <article class="verse-card vc4 reveal" aria-labelledby="cpv-title">
+        <div class="verse-card-icon" aria-hidden="true">🛡️</div>
+        <div class="verse-card-name" id="cpv-title">ComputeVerse</div>
+        <div class="verse-card-sub">Systems &amp; Logic</div>
+        <div class="verse-card-ages">✓ Ages 11–16</div>
+        <ul class="verse-card-features">
+          <li>Logic Games &amp; Circuits</li>
+          <li>Algorithms</li>
+          <li>Browser Algorithms</li>
+        </ul>
+        <a href="computeverse.html" class="verse-card-link">View Details →</a>
+      </article>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       LEARNING ECOSYSTEM
+  ============================================================ -->
+  <div class="section-full">
+    <section class="section" aria-labelledby="eco-heading">
+      <div class="ecosystem-header">
+        <div class="section-tag">How It Works</div>
+        <h2 class="section-title reveal" id="eco-heading">A Structured Learning <span>Ecosystem</span></h2>
+        <p class="section-subtitle reveal" style="margin:0 auto;">
+          Every element of Verse is engineered to keep students progressing with clarity and confidence.
+        </p>
+      </div>
+
+      <div class="ecosystem-grid stagger">
+        <!-- Eco 1: Clear Modules -->
+        <div class="eco-card reveal">
+          <div class="eco-icon ei1">
+            <!-- Module icon SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#EA580C" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
+              <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+            </svg>
+          </div>
+          <h3 class="eco-title">Clear <em>Modules</em></h3>
+          <p class="eco-desc">Short, digestible topics • Quizzes at every stage to reinforce understanding.</p>
+          <div class="eco-progress">
+            <div class="eco-prog-item">
+              <div class="eco-prog-label"><span>Module completion</span><span>82%</span></div>
+              <div class="eco-prog-bar"><div class="eco-prog-fill" style="--w:82%"></div></div>
+            </div>
+            <div class="eco-prog-item">
+              <div class="eco-prog-label"><span>Quiz pass rate</span><span>94%</span></div>
+              <div class="eco-prog-bar"><div class="eco-prog-fill" style="--w:94%"></div></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Eco 2: Interactive Practice -->
+        <div class="eco-card reveal">
+          <div class="eco-icon ei2">
+            <!-- Interactive icon SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#7C3AED" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+          </div>
+          <h3 class="eco-title"><em>Interactive</em> Practice</h3>
+          <p class="eco-desc">Patterns • Algorithms • Artemis AI tutor to guide learners step by step.</p>
+          <div class="eco-tags">
+            <span class="eco-tag">Live Coding</span>
+            <span class="eco-tag">Challenges</span>
+            <span class="eco-tag">Projects</span>
+            <span class="eco-tag">AI Hints</span>
+          </div>
+        </div>
+
+        <!-- Eco 3: Skill Progression -->
+        <div class="eco-card reveal">
+          <div class="eco-icon ei3">
+            <!-- Chart up icon SVG -->
+            <svg viewBox="0 0 24 24" fill="none" stroke="#16A34A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>
+            </svg>
+          </div>
+          <h3 class="eco-title">Skill <em>Progression</em></h3>
+          <p class="eco-desc">Detailed progress reports for parents and learners every week.</p>
+          <div class="eco-progress">
+            <div class="eco-prog-item">
+              <div class="eco-prog-label"><span>Weekly growth</span><span>+12%</span></div>
+              <div class="eco-prog-bar"><div class="eco-prog-fill" style="--w:68%"></div></div>
+            </div>
+            <div class="eco-prog-item">
+              <div class="eco-prog-label"><span>Skills unlocked</span><span>18/24</span></div>
+              <div class="eco-prog-bar"><div class="eco-prog-fill" style="--w:75%"></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <!-- ============================================================
+       PARENT DASHBOARD
+  ============================================================ -->
+  <section class="dashboard-section" aria-labelledby="dash-heading">
+    <div class="dashboard-inner">
+
+      <!-- Left: text -->
+      <div class="reveal-left">
+        <div class="section-tag">For Parents</div>
+        <h2 class="section-title" id="dash-heading">
+          Full Visibility.<br><span>Total Peace of Mind.</span>
+        </h2>
+
+        <div class="dashboard-features">
+          <div class="dash-feature">
+            <div class="dash-feature-icon dfi1" aria-hidden="true">📋</div>
+            <div class="dash-feature-text">
+              <h4>Weekly progress summaries</h4>
+              <p>Get a clear report every week showing exactly what your child learned and achieved.</p>
+            </div>
+          </div>
+          <div class="dash-feature">
+            <div class="dash-feature-icon dfi2" aria-hidden="true">📅</div>
+            <div class="dash-feature-text">
+              <h4><strong>Attendance</strong> tracking</h4>
+              <p>See every session your child completed — dates, durations, and streaks.</p>
+            </div>
+          </div>
+          <div class="dash-feature">
+            <div class="dash-feature-icon dfi3" aria-hidden="true">📈</div>
+            <div class="dash-feature-text">
+              <h4><strong>Skill growth</strong> analytics</h4>
+              <p>Visual charts showing progress across all four Verse subjects over time.</p>
+            </div>
+          </div>
+          <div class="dash-feature">
+            <div class="dash-feature-icon dfi4" aria-hidden="true">🔒</div>
+            <div class="dash-feature-text">
+              <h4><strong>Safe</strong>, moderated environment.</h4>
+              <p>Verse is fully supervised — no ads, no strangers, no distractions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: CSS Grid dashboard mockup -->
+      <div class="reveal-right">
+        <div class="dashboard-ui" role="img" aria-label="Parent dashboard preview">
+          <div class="dash-ui-header">
+            <div class="dash-ui-title">
+              📊 Parent Dashboard
+            </div>
+            <span class="dash-ui-badge">Live</span>
+          </div>
+
+          <div class="dash-ui-grid">
+            <!-- Stat 1 -->
+            <div class="dash-stat">
+              <div class="dash-stat-label">Sessions this week</div>
+              <div class="dash-stat-value">7 <span>sessions</span></div>
+              <div class="dash-stat-trend">↑ +2 vs last week</div>
+            </div>
+
+            <!-- Stat 2 -->
+            <div class="dash-stat">
+              <div class="dash-stat-label">Skills completed</div>
+              <div class="dash-stat-value">18 <span>/ 24</span></div>
+              <div class="dash-stat-trend">↑ +3 this week</div>
+            </div>
+
+            <!-- Bar Chart -->
+            <div class="dash-chart">
+              <div class="dash-chart-label">Weekly Activity — Minutes</div>
+              <div class="dash-chart-bars">
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:38px;background:var(--purple-light);"></div>
+                  <div class="chart-bar-label">Mon</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:52px;background:var(--purple);"></div>
+                  <div class="chart-bar-label">Tue</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:28px;background:var(--purple-light);"></div>
+                  <div class="chart-bar-label">Wed</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:60px;background:var(--orange);"></div>
+                  <div class="chart-bar-label">Thu</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:45px;background:var(--purple);"></div>
+                  <div class="chart-bar-label">Fri</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:55px;background:var(--orange);"></div>
+                  <div class="chart-bar-label">Sat</div>
+                </div>
+                <div class="chart-bar-wrap">
+                  <div class="chart-bar" style="height:32px;background:var(--purple-light);"></div>
+                  <div class="chart-bar-label">Sun</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Skill progress rows -->
+            <div class="dash-skills">
+              <div class="dash-skills-label">Skill Growth Analytics</div>
+              <div class="dash-skill-row">
+                <div class="dash-skill-name">Programming</div>
+                <div class="dash-skill-bar"><div class="dash-skill-fill sf1"></div></div>
+                <div class="dash-skill-pct">78%</div>
+              </div>
+              <div class="dash-skill-row">
+                <div class="dash-skill-name">Data Thinking</div>
+                <div class="dash-skill-bar"><div class="dash-skill-fill sf2"></div></div>
+                <div class="dash-skill-pct">62%</div>
+              </div>
+              <div class="dash-skill-row">
+                <div class="dash-skill-name">Creativity</div>
+                <div class="dash-skill-bar"><div class="dash-skill-fill sf3"></div></div>
+                <div class="dash-skill-pct">90%</div>
+              </div>
+              <div class="dash-skill-row">
+                <div class="dash-skill-name">Logic &amp; Systems</div>
+                <div class="dash-skill-bar"><div class="dash-skill-fill sf4"></div></div>
+                <div class="dash-skill-pct">44%</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CONTACT
+  ============================================================ -->
+  <section class="contact-section" id="contact" aria-labelledby="contact-heading">
+    <div class="contact-header">
+      <div class="section-tag">Get in Touch</div>
+      <h2 class="section-title reveal" id="contact-heading">Have Questions? <span>Contact Us</span></h2>
+      <p class="section-subtitle reveal" style="margin:0 auto;">We'd love to hear from you. Reach out anytime.</p>
+    </div>
+
+    <div class="contact-cards stagger">
+      <div class="contact-card reveal">
+        <div class="contact-icon ci-phone" aria-hidden="true">📞</div>
+        <div class="contact-label">Phone</div>
+        <div class="contact-value"><a href="tel:+9660551919337">+966 0551919337</a></div>
+      </div>
+      <div class="contact-card reveal">
+        <div class="contact-icon ci-email" aria-hidden="true">✉️</div>
+        <div class="contact-label">Email</div>
+        <div class="contact-value"><a href="mailto:Abdelhamid@ShalabyVerse.com">Abdelhamid@ShalabyVerse.com</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FAQ
+  ============================================================ -->
+  <section class="faq-section" id="faqs" aria-labelledby="faq-heading">
+    <div class="faq-header">
+      <div class="section-tag">FAQ</div>
+      <h2 class="section-title reveal" id="faq-heading">Frequently Asked <span>Questions</span></h2>
+      <p class="section-subtitle reveal" style="margin:0 auto;">Everything parents want to know about ShalabyVerse.</p>
+    </div>
+
+    <div class="faq-list">
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What age group is ShalabyVerse designed for?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">ShalabyVerse is built for students ages 9–16. Each Verse (learning path) targets a specific age range — CodeVerse and CreativeVerse start at age 9, DataVerse at 10, and ComputeVerse at 11. Content adapts to the learner's level as they progress.</div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Does my child need prior coding experience?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Not at all. Every Verse starts with foundations and builds progressively. Beginners learn from scratch, while students with experience can move through earlier modules quickly and start at their skill level.</div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          How does the parent dashboard work?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Parents get a dedicated dashboard with weekly progress summaries, attendance tracking, skill growth charts, and real-time session data. You'll see exactly what your child learned, how long they studied, and which skills they've unlocked — all without needing any technical knowledge.</div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Is ShalabyVerse safe for kids?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Absolutely. ShalabyVerse is a fully moderated, closed environment. There are no ads, no social messaging with strangers, and no external links. All content is curated and age-appropriate. Your child learns in a safe, focused space.</div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Can I cancel or switch plans anytime?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">Yes. All paid plans come with a 14-day free trial. You can upgrade, downgrade, or cancel anytime from your account settings — no hidden fees, no lock-in contracts.</div></div>
+      </div>
+
+      <div class="faq-item reveal">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          What devices does ShalabyVerse support?
+          <svg class="faq-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+        </button>
+        <div class="faq-answer"><div class="faq-answer-inner">ShalabyVerse works on any modern browser — Chrome, Safari, Edge, or Firefox — on desktops, laptops, tablets, and phones. No downloads or installations required. Just open the browser and start learning.</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA BANNER
+  ============================================================ -->
+  <section class="cta-banner" id="cta" aria-labelledby="cta-heading">
+    <div class="cta-banner-inner reveal">
+      <h2 id="cta-heading">Give Your Child a Structured Advantage<br>in a Digital World.</h2>
+      <p>Join thousands of families building real tech skills with Verse.</p>
+      <div class="cta-banner-btns">
+        <a href="whitelist.html" class="btn-orange" style="display:inline-block;text-align:center;">Join the Whitelist</a>
+        <button class="btn-ghost" onclick="scrollToSection('curriculum')">View Curriculum</button>
+      </div>
+      <p class="cta-note">Be the first to know when we launch.</p>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       FOOTER
+  ============================================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-logo"><img src="logo 02.png" alt="ShalabyVerse logo" height="38"> Shalaby<span>Verse</span></div>
+
+        <nav class="footer-links" aria-label="Footer navigation">
+          <a href="#curriculum">Curriculum</a>
+          <a href="#contact">Contact</a>
+          <a href="#faqs">FAQs</a>
+          <a href="#">Terms</a>
+          <a href="#">Privacy Policy</a>
+          <a href="#">Support</a>
+        </nav>
+
+        <div class="footer-social" aria-label="Social media links">
+          <a class="social-btn" href="#" aria-label="YouTube">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.377.504A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.504 9.376.504 9.376.504s7.505 0 9.377-.504a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="Twitter/X">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a class="social-btn" href="#" aria-label="Facebook">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047V9.43c0-3.007 1.792-4.668 4.533-4.668 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <p>ShalabyVerse © 2026. All rights reserved.</p>
+        <a class="footer-email" href="mailto:support@shalabyverse.com">support@shalabyverse.com</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       VANILLA JS: Navbar scroll + Mobile menu + ScrollReveal
+  ============================================================ -->
+  <script>
+    /* ── Navbar shadow on scroll ── */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      navbar.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    /* ── Mobile menu toggle ── */
+    const hamburger   = document.getElementById('hamburger');
+    const mobileMenu  = document.getElementById('mobile-menu');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = mobileMenu.classList.toggle('open');
+      hamburger.setAttribute('aria-expanded', isOpen);
+    });
+
+    function closeMobileMenu() {
+      mobileMenu.classList.remove('open');
+      hamburger.setAttribute('aria-expanded', 'false');
+    }
+
+    /* ── Smooth scroll helper ── */
+    function scrollToSection(id) {
+      const el = document.getElementById(id);
+      if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    /* ── ScrollReveal – Intersection Observer ── */
+    const revealSelectors = '.reveal, .reveal-left, .reveal-right';
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          // Stagger children if parent has .stagger
+          const parent = entry.target.closest('.stagger');
+          if (parent) {
+            const siblings = [...parent.querySelectorAll(':scope > .reveal, :scope > .reveal-left, :scope > .reveal-right')];
+            const idx = siblings.indexOf(entry.target);
+            entry.target.style.transitionDelay = (idx * 0.1) + 's';
+          }
+          observer.unobserve(entry.target); // fire once
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: '0px 0px -60px 0px'
+    });
+
+    // Observe all reveal elements
+    document.querySelectorAll(revealSelectors).forEach(el => observer.observe(el));
+
+    /* ── Eco progress bars animate on view ── */
+    const ecoFills = document.querySelectorAll('.eco-prog-fill');
+    const ecoObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          ecoObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    ecoFills.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      ecoObserver.observe(el);
+    });
+
+    /* ── Dashboard skill bars animate on view ── */
+    const skillFills = document.querySelectorAll('.dash-skill-fill');
+    const skillObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.animationPlayState = 'running';
+          skillObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.3 });
+    skillFills.forEach(el => {
+      el.style.animationPlayState = 'paused';
+      skillObserver.observe(el);
+    });
+
+    /* ── FAQ Accordion ── */
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const wasOpen = item.classList.contains('open');
+      // close all
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      // toggle clicked
+      if (!wasOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>
