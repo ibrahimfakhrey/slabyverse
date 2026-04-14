@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+
+  <!-- Homepage (Arabic default) -->
+  <url>
+    <loc>https://www.shalabyverse.com/</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/shalabyverse_english.html"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- Homepage (English) -->
+  <url>
+    <loc>https://www.shalabyverse.com/shalabyverse_english.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/shalabyverse_english.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/"/>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+
+  <!-- CodeVerse -->
+  <url>
+    <loc>https://www.shalabyverse.com/codeverse.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/codeverse.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/codeverse_arabic.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shalabyverse.com/codeverse_arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/codeverse_arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/codeverse.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- ComputeVerse -->
+  <url>
+    <loc>https://www.shalabyverse.com/computeverse.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/computeverse.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/computeverse_arabic.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shalabyverse.com/computeverse_arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/computeverse_arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/computeverse.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- CreativeVerse -->
+  <url>
+    <loc>https://www.shalabyverse.com/creativeverse.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/creativeverse.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/creativeverse_arabic.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shalabyverse.com/creativeverse_arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/creativeverse_arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/creativeverse.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- DataVerse -->
+  <url>
+    <loc>https://www.shalabyverse.com/dataverse.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/dataverse.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/dataverse_arabic.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shalabyverse.com/dataverse_arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/dataverse_arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/dataverse.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Whitelist -->
+  <url>
+    <loc>https://www.shalabyverse.com/whitelist.html</loc>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/whitelist.html"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/whitelist_arabic.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shalabyverse.com/whitelist_arabic.html</loc>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shalabyverse.com/whitelist_arabic.html"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shalabyverse.com/whitelist.html"/>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
+</urlset>
